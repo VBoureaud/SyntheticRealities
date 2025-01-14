@@ -110,6 +110,7 @@ In the future, we can add a multiplayer mode.
 ------
 
 Architecture:
+```
 ____________
 |          | 
 |  creat   | // server: post /games  
@@ -150,3 +151,5 @@ ______________
 |             | - send party to server
 ______________
 
+
+```
