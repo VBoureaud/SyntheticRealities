@@ -1,0 +1,97 @@
+components:
+  schemas:
+    Game:
+      type: object
+      properties:
+        name:
+          type: string
+        players:
+          type: string
+        votes:
+          type: object
+          properties:
+            playerName:
+              type: string
+            stepStart:
+              type: number
+            stepEnd:
+              type: number
+            choice:
+              type: number
+            hp:
+              type: number
+        AiHp:
+          type: string
+        defaultPlayersHP:
+          type: string
+        timer:
+          type: string
+        cards:
+          type: number
+        cardsAnswer:
+          type: object
+          properties:
+            name:
+              type: string
+            isHuman:
+              type: boolean
+            isAi:
+              type: boolean
+        maxCards:
+          type: number
+
+    Card:
+      type: object
+      properties:
+        name:
+          type: string
+        isHuman:
+          type: boolean
+        isAi:
+          type: boolean
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+
+  responses:
+    DuplicateGame:
+      description: Game already created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 400
+            message: User already created
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 401
+            message: Please authenticate
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 403
+            message: Forbidden
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 404
+            message: Not found

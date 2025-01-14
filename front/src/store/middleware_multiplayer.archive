@@ -1,0 +1,221 @@
+import { Games, Message } from "./types";
+import { eSteps, steps, } from "./";
+import { getRandomArbitrary } from "../utils";
+import config from "../config";
+
+export const createGame = (games: Games, playerName: string, totalSteps: number) => {
+    console.log('createGame');
+
+    // can create only one game
+    const game = games[playerName];
+    if (game) return false;
+
+    const newGame = [];
+    for (let i = 0; newGame.length < totalSteps; i++) {
+        const newItem = parseInt(getRandomArbitrary(0, config.imagesNumber) + '');
+        if (newGame.indexOf(newItem) === -1)
+            newGame.push(newItem);
+    }
+
+    const message = {
+        'gameName': playerName,
+        'action': steps[eSteps['create']],
+        'name': playerName,
+        'cards': newGame,
+    };
+    return message;
+}
+
+export const joinGame = (games: Games, playerName: string, name: string) => {
+    console.log('joinGame');
+
+    // if game exist & waiting players step & not total max players & not already in
+    const game = games[name];
+    if (!game) return false;
+    if (game && game.step != 0) return false;
+    if (game && game.totalPlayers === game.players.length) return false;
+    if (game && game.players.indexOf(playerName) != -1) return false;
+    const othersGames = Object.keys(games);
+    for (let i = 0; i < othersGames.length; i++) {
+        if (games[othersGames[i]].players.indexOf(playerName) != -1)
+            return false;
+    }
+
+    const message = {
+        'gameName': name,
+        'action': steps[eSteps['join']],
+        'name': playerName,
+    };
+    return message;
+}
+
+export const launchGame = (games: Games, playerName: string) => {
+    console.log('launchGame');
+
+    // if game exist & waiting players step & total max players & not already in
+    // can be launch only by creator playerName
+    const game = games[playerName];
+    if (!game) return false;
+    if (game && game.step != 0) return false;
+    if (game && game.totalPlayers !== game.players.length) return false;
+
+    const message = {
+        'gameName': playerName,
+        'action': steps[eSteps['launch']],
+        'name': playerName,
+    };
+    return message;
+}
+
+export const voteGame = (games: Games, playerName: string, name: string, vote: number) => {
+    console.log('voteGame');
+
+    const game = games[name];
+    // game exist & game is launched & player in game & not already voted
+    if (!game) return false;
+    if (game && game.step == 0) return false;
+    if (game.players.indexOf(playerName) === -1) return false;
+    if (game.votes[playerName] && game.votes[playerName].length >= game.step) return false;
+
+    const message = {
+        'gameName': name,
+        'action': steps[eSteps['vote']],
+        'name': playerName,
+        vote,
+    };
+    return message;
+}
+
+export const nextStep = (games: Games, playerName: string, name: string) => {
+    console.log('nextStep');
+
+    const game = games[name];
+    // game exist & player is admin && game is launched & game is not end
+    if (!game) return false;
+    if (name != playerName) return false;
+    if (game && game.step == 0) return false;
+    if (game && game.step == game.totalSteps) return false;
+
+    // if step full voted
+    for (let i = 0; i < game.players.length; i++) {
+        const p = game.players[i];
+        if (!game.votes[p]) return false;
+        if (game.votes[p] && game.votes[p].length != game.step) {
+            return false;
+        }
+    }
+
+    const message = {
+        'gameName': name,
+        'action': steps[eSteps['next']],
+        'name': playerName,
+    };
+    return message;
+}
+
+export const quitGame = (games: Games, playerName: string, name: string) => {
+    console.log('quitGame');
+
+    const game = games[name];
+
+    // game exist & player in game & player not out already
+    if (!game) return false;
+    if (game.players.indexOf(playerName) === -1) return false;
+    if (game.playersOut.indexOf(playerName) !== -1) return false;
+
+    const message = {
+        'gameName': name,
+        'action': steps[eSteps['quit']],
+        'name': playerName,
+    };
+    return message;
+}
+
+export const endGame = (games: Games, playerName: string, name: string) => {
+    console.log('endGame');
+
+    const game = games[name];
+    // game exist & player is admin
+    if (!game) return false;
+    if (name != playerName) return false;
+
+    const message = {
+        'gameName': name,
+        'action': steps[eSteps['end']],
+        'name': playerName,
+    };
+    return message;
+}
+
+export const handleGame = (
+    games: Games,
+    playerName: string,
+    message?: Message,
+    totalPlayers?: number,
+    totalSteps?: number,
+) => {
+    const previousState = games;
+    if (message
+        && totalPlayers
+        && totalSteps
+        && message.cards
+        && message.action === steps[eSteps['create']]) {
+        previousState[message.gameName] = {
+            players: [message.name],
+            playersOut: [],
+            totalPlayers,
+            step: 0,
+            totalSteps,
+            votes: {},
+            cards: message.cards,
+        }
+    }
+    else if (message && message.action === steps[eSteps['join']]) {
+        previousState[message.gameName] = {
+            ...previousState[message.gameName],
+            players: [...previousState[message.gameName].players, message.name],
+        }
+    }
+    else if (message && message.action === steps[eSteps['launch']]) {
+        previousState[message.gameName] = {
+            ...previousState[message.gameName],
+            step: 1,
+        }
+    }
+    else if (message && message.vote != undefined && message.action === steps[eSteps['vote']]) {
+        let newVotes = [];
+        if (previousState[message.gameName].votes[message.name])
+            newVotes = [
+                ...previousState[message.gameName].votes[message.name],
+                message.vote
+            ];
+        else {
+            newVotes = [message.vote];
+        }
+        previousState[message.gameName].votes[message.name] = newVotes;
+        // todo - check if session is done
+    }
+    else if (message && message.action === steps[eSteps['next']]) {
+        previousState[message.gameName] = {
+            ...previousState[message.gameName],
+            step: previousState[message.gameName].step + 1,
+        }
+    }
+    else if (message && message.action === steps[eSteps['end']]) {
+        delete previousState[message.gameName];
+        // todo - archive the party
+    }
+    else if (message && message.action === steps[eSteps['quit']]) {
+        const previousPlayers = previousState[message.gameName].players;
+        previousPlayers.splice(previousPlayers.indexOf(message.name), 1);
+        previousState[message.gameName] = {
+            ...previousState[message.gameName],
+            players: previousPlayers,
+            playersOut: [...previousState[message.gameName].playersOut, message.name],
+        }
+    }
+    else {
+        return false;
+    }
+    return previousState;
+}

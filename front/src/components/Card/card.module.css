@@ -1,0 +1,199 @@
+.card_scene {
+  -webkit-animation: cardAppear 1.4s forwards;
+  animation: cardAppear 1.4s forwards;
+  margin: auto;
+  cursor: pointer;
+  opacity: 1;
+
+  -webkit-transition: opacity 1.5s ease-in-out;
+  -moz-transition: opacity 1.5s ease-in-out;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.card_invisible {
+  opacity: 0;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.card_face {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  box-shadow: 0 0 3px 2px #acacac;
+  width: 100%;
+  height: 100%;
+  border-radius: 9px;
+  border: 0.5rem solid #f9f7ef;
+}
+
+.card_backing {
+  position: absolute;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.card_backing .top_banner {
+  position: relative;
+  z-index: 1;
+  background-color: #4e79ad;
+  width: 100%;
+  height: 5.85rem;
+  border-radius: 3px 3px 0 0;
+  display: none;
+}
+
+.back_main {
+  -webkit-box-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+
+  z-index: 1;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(135deg, #b6cff3 0% 25%, #c8dcf1 25% 50%, #88b4ed 50% 75%, #2f5c8c 75%);
+}
+
+.main_panel {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+  position: absolute;
+}
+
+.card_front {
+  grid-template-rows: 4.4rem 1fr auto;
+  position: relative;
+  z-index: 5;
+  display: grid;
+  background-color: #f9f7ef;
+  overflow: hidden;
+}
+
+.card.card_flipped {
+  -webkit-animation: cardFlip .275s forwards linear;
+  animation: cardFlip .275s forwards linear;
+}
+
+.card.card_unflip {
+  -webkit-animation: cardUnFlip .275s forwards linear;
+  animation: cardUnFlip .275s forwards linear;
+}
+
+@-webkit-keyframes cardFlip {
+  0% {
+    -webkit-transform: rotateZ(0deg) rotateY(180deg);
+    transform: rotateZ(0deg) rotateY(180deg);
+  }
+
+  50% {
+    -webkit-transform: rotateZ(-10deg) rotateY(90deg);
+    transform: rotateZ(-10deg) rotateY(90deg);
+  }
+
+  100% {
+    -webkit-transform: rotateZ(0deg) rotateY(0deg);
+    transform: rotateZ(0deg) rotateY(0deg);
+  }
+}
+
+@keyframes cardFlip {
+  0% {
+    -webkit-transform: rotateZ(0deg) rotateY(180deg);
+    transform: rotateZ(0deg) rotateY(180deg);
+  }
+
+  50% {
+    -webkit-transform: rotateZ(-10deg) rotateY(90deg);
+    transform: rotateZ(-10deg) rotateY(90deg);
+  }
+
+  100% {
+    -webkit-transform: rotateZ(0deg) rotateY(0deg);
+    transform: rotateZ(0deg) rotateY(0deg);
+  }
+}
+
+@-webkit-keyframes cardUnFlip {
+  0% {
+    -webkit-transform: rotateZ(0deg) rotateY(0deg);
+    transform: rotateZ(0deg) rotateY(0deg);
+  }
+
+  50% {
+    -webkit-transform: rotateZ(-10deg) rotateY(90deg);
+    transform: rotateZ(-10deg) rotateY(90deg);
+  }
+
+  100% {
+    -webkit-transform: rotateZ(0deg) rotateY(180deg);
+    transform: rotateZ(0deg) rotateY(180deg);
+  }
+}
+
+@keyframes cardUnFlip {
+  0% {
+    -webkit-transform: rotateZ(0deg) rotateY(0deg);
+    transform: rotateZ(0deg) rotateY(0deg);
+  }
+
+  50% {
+    -webkit-transform: rotateZ(-10deg) rotateY(90deg);
+    transform: rotateZ(-10deg) rotateY(90deg);
+  }
+
+  100% {
+    -webkit-transform: rotateZ(0deg) rotateY(180deg);
+    transform: rotateZ(0deg) rotateY(180deg);
+  }
+}
+
+.grain_overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: url('assets/grey_card.png');
+}
+
+.cardLoading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 14;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
