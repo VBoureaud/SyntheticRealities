@@ -8,20 +8,23 @@ This is a turn-based game where players aim to defeat an AI opponent by correctl
 
 ### Server
 
+```
 $ cd server/
 $ npm install
 $ mv .default_env .env
 $ npm run dev
- 
+```
+
 ### Front
 
 The game images are not committed to github, you will have to download them from another source.
 
+```
 $ cd front/
 $ npm install
 $ cp images front/src/assets
 $ npm run dev
-
+```
 
 ## Core Mechanics
 
