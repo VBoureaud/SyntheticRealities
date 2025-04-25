@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 import { Games, Game } from "../store/types";
-import { LoadingOutlined, SketchCircleFilled, OpenAIOutlined } from '@ant-design/icons';
+import { LoadingOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { Spin, Slider, Progress } from 'antd';
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import { positifNumberOrZero, calculatorXp } from '../utils';
 import config from '../config';
 import styles from './gameboard.module.css';
+import { colors } from '../styles/colors';
 
 import Card from "./Card";
 import imageList from "./imageList";
-import IconVersus64 from "../assets/icon_versus_64.png";
 
 type Props = {
   loading: boolean;
@@ -49,8 +49,8 @@ function GameBoard(props: Props) {
         // reset vote & hp for new step
         console.log('init');
         setVote(enumVote['init']);
-        const maxHp = playerHp > config.hpChooseMax ? config.hpChooseMax : playerHp;
-        setHp(parseInt(maxHp / 2 + ''));
+        const maxHp = Math.min(config.hpChooseMax, playerHp);
+        setHp(Math.max(config.hpChooseMin, Math.floor(maxHp / 2)));
       }
       setGame(game => ({ ...game, ...props.games[props.party] }));
     }
@@ -167,21 +167,54 @@ function GameBoard(props: Props) {
 
         {game && <div className={styles.headGame}>
           <p className={styles.counter}>{game?.cards.length} / {game?.maxCards}</p>
-          <div style={{ height: 'fit-content' }} onClick={() => props.handleClose()} className="button">Quit the game</div>
+          <div style={{ 
+            color: '#808080',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            border: '1px solid #808080',
+            padding: '8px 15px',
+            borderRadius: '8px',
+            background: 'transparent'
+          }} onClick={() => props.handleClose()}>Quit the game</div>
         </div>}
 
         {/* Screen Result step */}
         {game
           && vote === enumVote['result']
-          && <div className={styles.resultStep}>
-            <h2>Stage Result</h2>
+          && <div className={styles.resultStep} style={{ 
+            border: '2px solid #daa520',
+            borderRadius: '8px',
+            padding: '20px',
+            margin: '30px 0',
+            background: 'transparent'
+          }}>
+            <h2 style={{ 
+              fontWeight: 'bold', 
+              color: '#daa520', 
+              letterSpacing: '0.1em', 
+              fontSize: '2rem',
+              marginBottom: '20px',
+              textTransform: 'uppercase'
+            }}>Result</h2>
             <div>
-              <h3>It was {
+              <h3 style={{ 
+                fontWeight: 'bold', 
+                color: '#daa520', 
+                letterSpacing: '0.1em', 
+                fontSize: '1.5rem',
+                marginBottom: '20px',
+                textTransform: 'uppercase',
+                textShadow: '0 0 10px rgba(218, 165, 32, 0.3)',
+                animation: 'glitch 3s ease-in-out infinite, glitch-scan 6s ease-in-out infinite'
+              }}>It was {
                 game.cardsAnswer[game.cardsAnswer.length - 1].isAI ?
                   'AI-Generated' : 'Real'
               }</h3>
               <p>You
-                {game.votes[props.playerName][game.votes[props.playerName].length - 1].choice == Number(game.cardsAnswer[game.cardsAnswer.length - 1].isAI) ? ' win ' : ' loss -'}
+                {game.votes[props.playerName][game.votes[props.playerName].length - 1].choice == Number(game.cardsAnswer[game.cardsAnswer.length - 1].isAI) ? ' win ' : ' lost -'}
                 <b>{calculatorXp(
                   game.votes[props.playerName][game.votes[props.playerName].length - 1].stepStart,
                   game.votes[props.playerName][game.votes[props.playerName].length - 1].stepEnd,
@@ -191,7 +224,17 @@ function GameBoard(props: Props) {
               <p style={{ marginBottom: 0 }}>Answer in <b>{(game.votes[props.playerName][game.votes[props.playerName].length - 1].stepEnd - game.votes[props.playerName][game.votes[props.playerName].length - 1].stepStart) / 1000}s</b></p>
               <p style={{ marginTop: 0 }}>The faster you bet, the more points you get</p>
             </div>
-            <button style={{ maxWidth: '100px', margin: '40px auto' }} onClick={() => !props.loading && handleNext(game)}>
+            <button style={{ 
+              maxWidth: '100px', 
+              margin: '40px auto',
+              color: '#daa520',
+              border: '2px solid #daa520',
+              background: 'transparent',
+              padding: '8px 15px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 'bold'
+            }} onClick={() => !props.loading && handleNext(game)}>
               {props.loading && 'Loading...'}
               {!props.loading && 'Next'}
             </button>
@@ -205,63 +248,252 @@ function GameBoard(props: Props) {
 
             {props.games[props.party].isTimerFix && <div className={styles.timer}>
               <p className={styles.progress}>
-                <Progress percent={timeToAnswer / props.games[props.party].timer * 100} showInfo={false} />
+                <Progress 
+                  percent={timeToAnswer / props.games[props.party].timer * 100} 
+                  showInfo={false}
+                  strokeColor="#daa520"
+                />
               </p>
               <p className={styles.count}>{positifNumberOrZero(parseInt(timeToAnswer / 1000 + ''))}</p>
             </div>}
             <div className={styles.tableContainer}>
               <div className={styles.displayPlayer}>
-                {/* AI Life Box */}
-                <div className={styles.aiContainer}>
-                  <OpenAIOutlined style={{ fontSize: '28px', marginRight: '15px' }} />
-                  <p style={{ display: 'flex' }}>
-                    <span style={{ fontSize: '25px' }}>{AIHp}</span>
-                    <SketchCircleFilled style={{ fontSize: '28px', marginLeft: '5px' }} />
-                  </p>
+                {/* Combined AI and Player Box */}
+                <div style={{ 
+                  maxWidth: '100%',
+                  background: 'transparent',
+                  border: '1px solid #daa520',
+                  boxShadow: '0 0 10px rgba(218, 165, 32, 0.3)',
+                  position: 'relative',
+                  padding: '12px',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '30px'
+                }}>
+                  {/* AI Section */}
+                  <div style={{ flex: 1, textAlign: 'center' }}>
+                    <h2 style={{ 
+                      fontWeight: 'bold', 
+                      color: '#daa520', 
+                      letterSpacing: '0.1em', 
+                      fontSize: '1rem',
+                      margin: '0',
+                      textTransform: 'uppercase',
+                      textShadow: 'none',
+                      animation: 'none'
+                    }}>AI</h2>
+                    <p style={{ 
+                      display: 'flex', 
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}>
+                      <span style={{ 
+                        fontSize: '20px',
+                        color: colors.text.secondary
+                      }}>{AIHp}</span>
+                      <ThunderboltOutlined style={{ 
+                        fontSize: '24px', 
+                        color: '#daa520'
+                      }} />
+                    </p>
+                  </div>
+
+                  {/* VS Section */}
+                  <div style={{ 
+                    padding: '0 20px',
+                    textAlign: 'center'
+                  }}>
+                    <h1 style={{ 
+                      fontWeight: 'bold', 
+                      color: '#daa520', 
+                      letterSpacing: '0.1em', 
+                      fontSize: '1.2rem',
+                      margin: '0',
+                      textTransform: 'uppercase'
+                    }}>VS</h1>
+                  </div>
+
+                  {/* Player Section */}
+                  <div style={{ flex: 1, textAlign: 'center' }}>
+                    <h2 style={{ 
+                      fontWeight: 'bold', 
+                      color: '#daa520', 
+                      letterSpacing: '0.1em', 
+                      fontSize: '1rem',
+                      margin: '0',
+                      textTransform: 'uppercase',
+                      textShadow: 'none',
+                      animation: 'none'
+                    }}>{props.playerName}</h2>
+                    <p style={{ 
+                      display: 'flex', 
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}>
+                      <span style={{ 
+                        fontSize: '20px',
+                        color: colors.text.secondary
+                      }}>{playerHp}</span>
+                      <ThunderboltOutlined style={{ 
+                        fontSize: '24px', 
+                        color: '#daa520'
+                      }} />
+                    </p>
+                  </div>
                 </div>
 
-                <img src={IconVersus64} alt="icon-versus-64" />
+                {/* Decorative Separation */}
+                <div style={{ 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  alignItems: 'center',
+                  marginBottom: '30px',
+                  position: 'relative'
+                }}>
+                  <div style={{
+                    width: '100%',
+                    height: '2px',
+                    background: 'linear-gradient(90deg, transparent, #808080, transparent)',
+                    position: 'relative'
+                  }}>
+                    <div style={{
+                      position: 'absolute',
+                      left: '50%',
+                      top: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: '20px',
+                      height: '20px',
+                      border: '2px solid #daa520',
+                      borderRadius: '50%',
+                      boxShadow: '0 0 10px rgba(218, 165, 32, 0.3)',
+                      animation: 'glitch 3s ease-in-out infinite, glitch-scan 6s ease-in-out infinite'
+                    }} />
+                  </div>
+                </div>
 
                 {/* Players Block */}
                 {game && game.players.map((e: string, index: number) =>
                   <div className={styles.playerZone} key={index}>
-                    <div className={styles.playerContainerLife} style={{ maxWidth: '100%' }}>
-                      <p><b>{props.playerName}</b></p>
-                      <p style={{ display: 'flex', justifyContent: 'center' }}>
-                        <span style={{ fontSize: '25px' }}>{playerHp}</span>
-                        <SketchCircleFilled style={{ fontSize: '28px', marginLeft: '5px' }} />
-                      </p>
-                    </div>
-                    <div className={styles.playerContainer}>
-                      <p style={{ margin: '10px 0', fontWeight: 'bold', letterSpacing: '1px' }}>Who made this ?</p>
+                    <div className={styles.playerContainer} style={{ 
+                      background: 'transparent',
+                      border: '1px solid #daa520',
+                      boxShadow: '0 0 10px rgba(218, 165, 32, 0.3)',
+                      position: 'relative',
+                      padding: '25px',
+                      borderRadius: '8px',
+                      minHeight: '200px'
+                    }}>
+                      <p style={{ 
+                        margin: '8px 0', 
+                        fontWeight: 'bold', 
+                        letterSpacing: '0.1em',
+                        color: '#daa520',
+                        fontSize: '1.2rem',
+                        textTransform: 'uppercase',
+                        textShadow: '0 0 10px rgba(218, 165, 32, 0.3)',
+                        position: 'relative'
+                      }}>Make Your Choice!</p>
 
-                      <div style={{ marginTop: '30px', display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                      <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
                         <span style={{ flex: 5 }}>
-                          <Slider disabled={vote !== enumVote['init']} value={hp} onChange={(v: number) => setHp(v)} max={config.hpChooseMax <= playerHp ? config.hpChooseMax : playerHp} min={config.hpChooseMin < playerHp ? config.hpChooseMin : playerHp} tooltip={{ open: false }} />
+                          <Slider 
+                            disabled={vote !== enumVote['init']} 
+                            value={hp} 
+                            onChange={(v: number) => setHp(v)} 
+                            max={Math.min(config.hpChooseMax, playerHp)} 
+                            min={config.hpChooseMin} 
+                            tooltip={{ open: false }}
+                            trackStyle={{ 
+                              background: '#daa520',
+                              boxShadow: '0 0 10px rgba(218, 165, 32, 0.3)'
+                            }}
+                            handleStyle={{ 
+                              borderColor: '#daa520',
+                              boxShadow: '0 0 10px rgba(218, 165, 32, 0.3)'
+                            }}
+                            railStyle={{
+                              background: 'rgba(218, 165, 32, 0.2)'
+                            }}
+                          />
                         </span>
-                        <div className={styles.betZone}>
-                          <span style={{ width: '55px' }}>{hp}</span>
-                          <SketchCircleFilled style={{ fontSize: '28px', marginLeft: '5px' }} />
+                        <div className={styles.betZone} style={{ 
+                          background: 'transparent',
+                          padding: '5px 10px',
+                          borderRadius: '4px',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}>
+                          <span style={{ 
+                            width: '45px',
+                            color: '#daa520',
+                            fontSize: '1rem',
+                            fontWeight: 'bold'
+                          }}>{hp}</span>
+                          <ThunderboltOutlined style={{ 
+                            fontSize: '24px', 
+                            marginLeft: '5px', 
+                            color: '#daa520'
+                          }} />
                         </div>
                       </div>
-                      {props.playerName === e && <div style={{ display: 'flex', marginBottom: '10px' }}>
-                        <button style={{ marginRight: '5px' }} className={(vote === enumVote['real'] ? 'choiceTrue' : 'choiceWait') + ' realBtn'} onClick={() => vote === 0 && setVote(enumVote['real'])}>
+                      {props.playerName === e && <div style={{ 
+                        display: 'flex', 
+                        justifyContent: 'center',
+                        gap: '15px',
+                        marginTop: '15px'
+                      }}>
+                        <div 
+                          style={{ 
+                            color: '#daa520',
+                            fontSize: '1rem',
+                            fontWeight: 'bold',
+                            letterSpacing: '0.1em',
+                            textTransform: 'uppercase',
+                            textShadow: '0 0 10px rgba(218, 165, 32, 0.3)',
+                            position: 'relative',
+                            cursor: 'pointer',
+                            border: '1px solid #daa520',
+                            padding: '8px 15px',
+                            borderRadius: '8px',
+                            background: 'transparent'
+                          }}
+                          onClick={() => vote === 0 && setVote(enumVote['real'])}
+                        >
                           Real
-                        </button>
-                        <p style={{ display: 'none', margin: 0, padding: '10px' }}>OR</p>
-                        <button style={{ fontSize: '15px' }} className={vote === enumVote['ai-generated'] ? 'choiceFalse' : 'choiceWait'} onClick={() => vote === 0 && setVote(enumVote['ai-generated'])}>
+                        </div>
+                        <div 
+                          style={{ 
+                            color: '#daa520',
+                            fontSize: '1rem',
+                            fontWeight: 'bold',
+                            letterSpacing: '0.1em',
+                            textTransform: 'uppercase',
+                            textShadow: '0 0 10px rgba(218, 165, 32, 0.3)',
+                            position: 'relative',
+                            cursor: 'pointer',
+                            border: '1px solid #daa520',
+                            padding: '8px 15px',
+                            borderRadius: '8px',
+                            background: 'transparent'
+                          }}
+                          onClick={() => vote === 0 && setVote(enumVote['ai-generated'])}
+                        >
                           AI-Generated
-                        </button>
+                        </div>
                       </div>}
                       {props.playerName !== e
                         && (game.votes[e]
                           && game.votes[e].length < game.cards.length
                           || !game.votes[e])
-                        && <Spin indicator={<LoadingOutlined style={{ color: 'white' }} spin />} />}
+                        && <Spin indicator={<LoadingOutlined style={{ color: '#daa520' }} spin />} />}
                       {props.playerName !== e
                         && game.votes[e]
                         && game.votes[e].length >= game.cards.length
-                        && <p>Voted</p>}
+                        && <p style={{ color: '#daa520' }}>Voted</p>}
                     </div>
                   </div>
                 )}
@@ -281,30 +513,50 @@ function GameBoard(props: Props) {
                 <PhotoProvider
                   loadingElement={<p style={{ color: 'white' }}>Loading</p>}
                 >
-                  {game && <Card
-                    autoReturn
-                    showFace={false}
-                    onClick={() => console.log('nothing-todo')}
-                    style={{
-                      maxWidth: '300px',
-                      width: '90%',
-                      height: '100%',
-                    }}
-                    imgLoaded
-                  >
-                    <PhotoView
-                      src={imageList[game.cards[game.cards.length - 1] - 1]}
-                    >
-                      <img
-                        src={imageList[game.cards[game.cards.length - 1] - 1]}
-                        style={{ zIndex: 11, maxWidth: '100%', margin: 'auto' }}
-                      />
-                    </PhotoView>
-                    {/*<img
-                      src={imageList[game.cards[game.cards.length - 1] - 1]}
-                      style={{ maxWidth: '100%', margin: 'auto' }}
-                    />*/}
-                  </Card>}
+                  {game && (() => {
+                    // Ensure we have a valid card index (1-10)
+                    const lastCardIndex = game.cards[game.cards.length - 1];
+                    const validIndex = ((lastCardIndex - 1) % 10) + 1; // This ensures we get a number between 1 and 10
+                    console.log('Card index:', lastCardIndex, 'Valid index:', validIndex);
+                    
+                    return (
+                      <Card
+                        autoReturn
+                        showFace={false}
+                        onClick={() => console.log('nothing-todo')}
+                        style={{
+                          maxWidth: '300px',
+                          width: '100%',
+                          height: '100%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}
+                        imgLoaded={true}
+                      >
+                        <PhotoView
+                          src={imageList[validIndex - 1]}
+                        >
+                          <img
+                            src={imageList[validIndex - 1]}
+                            style={{ 
+                              zIndex: 11, 
+                              maxWidth: '100%', 
+                              maxHeight: '100%',
+                              margin: 'auto',
+                              display: 'block',
+                              objectFit: 'contain'
+                            }}
+                            alt="game card"
+                            onError={(e) => {
+                              console.error('Image failed to load:', e);
+                              console.error('Attempted to load image at index:', validIndex - 1);
+                            }}
+                          />
+                        </PhotoView>
+                      </Card>
+                    );
+                  })()}
                 </PhotoProvider>
               </div>
             </div>
