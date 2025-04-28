@@ -1,5 +1,6 @@
 import { DashboardOutlined, InfoCircleOutlined, TrophyOutlined } from '@ant-design/icons';
 import { colors } from '../styles/colors';
+import styles from './footer.module.css';
 
 type Props = {
   gameCount: number;
@@ -20,87 +21,24 @@ function Footer(props: Props) {
   }
   return (
     <>
-      <footer style={{
-        ...props.style,
-        marginTop: '-20px',
-        padding: '8px 0'
-      }}>
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          gap: '20px',
-          alignItems: 'center'
-        }}>
+      <footer className={`${styles.footer}`} style={props.style}>
+        <div className={styles.footerContainer}>
           <div 
-            className="btn_footer"
-            style={{
-              background: 'transparent',
-              color: colors.text.secondary,
-              border: 'none',
-              padding: '6px 10px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'all 0.3s ease',
-              fontSize: '0.9rem'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = colors.primary;
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = colors.text.secondary;
-            }}
+            className={`${styles.footerButton}`}
           >
             <InfoCircleOutlined style={{ fontSize: '0.9rem' }} />
             <span>How to play</span>
           </div>
           <div 
             onClick={() => handleLink(props.linkToPlay)} 
-            className="btn_footer"
-            style={{
-              background: 'transparent',
-              color: colors.text.secondary,
-              border: 'none',
-              padding: '6px 10px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'all 0.3s ease',
-              fontSize: '0.9rem'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = colors.primary;
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = colors.text.secondary;
-            }}
+            className={`${styles.footerButton}`}
           >
             <DashboardOutlined style={{ fontSize: '0.9rem' }} />
             <span>More Info</span>
           </div>
           <div 
             onClick={() => handleLink(props.LinkToScore)} 
-            className="btn_footer"
-            style={{
-              background: 'transparent',
-              color: colors.text.secondary,
-              border: 'none',
-              padding: '6px 10px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'all 0.3s ease',
-              fontSize: '0.9rem'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = colors.primary;
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = colors.text.secondary;
-            }}
+            className={`${styles.footerButton}`}
           >
             <TrophyOutlined style={{ fontSize: '0.9rem' }} />
             <span>Leaderboard</span>
