@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Vote, Games, Game } from "../store/types";
-import { PhotoProvider, PhotoView } from "react-photo-view";
-import "react-photo-view/dist/react-photo-view.css";
-import imageList from "./imageList";
 import { calculatorXp, calculatorHp } from "../utils";
 import Confetti from 'react-confetti';
 
@@ -51,10 +48,23 @@ function GameEndScreen(props: Props) {
                     <div className="resultArea">
                         <div>
                             <h2 style={{ marginBottom: '0' }}>Result</h2>
-                            {aiHp > 0 && playerHp > 0 && <h3 style={{ letterSpacing: '3px', fontSize: '35px', margin: '20px 0' }}>Draw !</h3>}
-                            {aiHp <= 0 && playerHp > 0 && <h3 style={{ letterSpacing: '3px', fontSize: '35px', margin: '20px 0' }}>Won !</h3>}
-                            {aiHp > 0 && playerHp <= 0 && <h3 style={{ letterSpacing: '3px', fontSize: '35px', margin: '20px 0' }}>Lost !</h3>}
-                            {/*<h3 style={{ margin: '5px 0 25px 0' }}>Total: {game && game.votes[props.playerName].filter((e: Vote, index: number) => e.choice === Number(game.cardsAnswer[index].isAI)).length}/{game?.maxCards}</h3>*/}
+                            {aiHp === playerHp && <h3 style={{ letterSpacing: '3px', fontSize: '35px', margin: '20px 0' }}>Draw !</h3>}
+                            {aiHp > playerHp && <h3 style={{ 
+                                letterSpacing: '3px', 
+                                fontSize: '35px', 
+                                margin: '20px 0',
+                                animation: 'glitch 1s linear infinite',
+                                textShadow: '2px 2px #ff0000, -2px -2px #00ff00',
+                                textTransform: 'uppercase'
+                            }}>You lost!</h3>}
+                            {aiHp < playerHp && <h3 style={{ 
+                                letterSpacing: '3px', 
+                                fontSize: '35px', 
+                                margin: '20px 0',
+                                animation: 'glitch 1s linear infinite',
+                                textShadow: '2px 2px #ff0000, -2px -2px #00ff00',
+                                textTransform: 'uppercase'
+                            }}>YOU WON!</h3>}
                         </div>
                         <div className="scoreArea">
                             <div className="resultScoreBox">
@@ -66,40 +76,35 @@ function GameEndScreen(props: Props) {
                                 <h3>{playerHp < 0 ? 0 : playerHp}</h3>
                             </div>
                         </div>
-                        <div onClick={() => props.handleClose()} className="button closeBtn">Close the game</div>
+                        <div onClick={() => props.handleClose()} className="button closeBtn" style={{ backgroundColor: 'transparent', border: '2px solid #daa520', color: '#daa520' }}>Close the game</div>
                     </div>
                     <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
                         <div style={{ justifyContent: 'center', display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
-                            <PhotoProvider>
-                                {game && game.votes[props.playerName].map((e: Vote, index: number) => <div style={{ margin: '10px', display: 'flex' }} key={index}>
-                                    <PhotoView src={imageList[game.cards[index] - 1]}>
-                                        <span style={{ backgroundImage: 'url(' + imageList[game.cards[index] - 1] + ')' }} className="number-card-result">Card {index + 1}</span>
-                                    </PhotoView>
-
+                            {game && game.cards.map((cardId: number, index: number) => {
+                                const vote = game.votes[props.playerName]?.[index];
+                                return <div style={{ margin: '10px', display: 'flex' }} key={index}>
                                     <p>
-                                        Your answer: <b>{e.choice + 1 === enumVote['real'] ? 'Real' : 'AI-Generated'}</b><br />
-                                        with: <b>{e.hp}</b> bets<br />
+                                        <span style={{ color: '#daa520', fontSize: '1.2rem', marginBottom: '10px', display: 'block' }}>Card {index + 1}</span>
+                                        {vote ? <>
+                                            Your answer: <b>{vote.choice + 1 === enumVote['real'] ? 'Real' : 'AI-Generated'}</b><br />
+                                            you bet: <b>{vote.hp}</b><br />
 
-                                        <span style={{ fontSize: '50px', display: 'block', lineHeight: '0', marginBottom: '20px', textAlign: 'center', color: '#2c533d' }}>.</span>
-                                        It was: <b>{game.cardsAnswer[index].isHuman ? 'Real' : 'AI-Generated'}</b><br />
-                                        You {e.choice == Number(game.cardsAnswer[index].isAI) ? ' win ' : ' loss -'}<b>{calculatorXp(
-                                            e.stepStart,
-                                            e.stepEnd,
-                                            e.hp,
-                                            e.choice == Number(game.cardsAnswer[index].isAI)
-                                        )}</b>
+                                            <span style={{ fontSize: '50px', display: 'block', lineHeight: '0', marginBottom: '20px', textAlign: 'center', color: '#2c533d' }}>.</span>
+                                            It was: <b>{game.cardsAnswer[index].isHuman ? 'Real' : 'AI-Generated'}</b><br />
+                                            You {vote.choice == Number(game.cardsAnswer[index].isAI) ? ' win ' : ' lost: '}<b>{calculatorXp(
+                                                vote.stepStart,
+                                                vote.stepEnd,
+                                                vote.hp,
+                                                vote.choice == Number(game.cardsAnswer[index].isAI)
+                                            )}</b>
+                                        </> : <span style={{ color: '#daa520' }}>Not played</span>}
                                     </p>
-                                </div>)}
-                            </PhotoProvider>
-
+                                </div>
+                            })}
                         </div>
                     </div>
-
                 </div>}
-
-
             </div>
-
         </>
     )
 }

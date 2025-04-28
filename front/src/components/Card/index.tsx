@@ -21,29 +21,36 @@ type State = {
 class Card extends React.PureComponent<Props, State>{
   constructor(props: Props) {
     super(props);
-    //this._isMounted = false;
 
     const state: State = {
       showFace: props.showFace != undefined ? props.showFace : false,
       firstShow: true,
-      imgLoaded: this.props.imgLoaded,
+      imgLoaded: props.imgLoaded,
       opacityVisible: true,
     };
 
     this.state = state;
 
     this.handleClick = this.handleClick.bind(this);
+  }
 
-    if (props.autoReturn)
+  componentDidMount() {
+    if (this.props.autoReturn) {
       setTimeout(() => {
         this.setState({
           showFace: !this.state.showFace,
           firstShow: false,
         });
       }, 750);
+    }
   }
 
-  // Force Flip
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.imgLoaded !== this.props.imgLoaded) {
+      this.setState({ imgLoaded: this.props.imgLoaded });
+    }
+  }
+
   toggleVisible() {
     this.setState({
       showFace: !this.state.showFace,
@@ -57,30 +64,9 @@ class Card extends React.PureComponent<Props, State>{
     });
   }
 
-  // Auto Flip if showFace props change
-  /*componentDidUpdate() {
-    if (this.props.showFace != undefined && this.props.showFace != this.state.showFace) {
-      this.setState({
-        showFace: this.props.showFace,
-      });
-    }
-  }*/
-
   getFaceVisibile() {
     return this.state.showFace;
   }
-
-  setImgLoaded() {
-    this.setState({ imgLoaded: true });
-  }
-
-  /*componentDidMount() {
-    this._isMounted = true;
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }*/
 
   handleClick() {
     if (this.props.onClick)
@@ -110,13 +96,11 @@ class Card extends React.PureComponent<Props, State>{
                 <div className={styles.cardLoading}>
                   Loading
                 </div>}
-
               {this.props.children}
             </div>
             <div className={styles.grain_overlay}></div>
           </div>
         </div>
-
       </div>
     );
   }

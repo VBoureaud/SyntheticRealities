@@ -2,10 +2,12 @@
     width: 100%;
     height: 100%;
     position: relative;
+    background-color: var(--background-dark);
 }
 
 .containerResponsive {
     position: relative;
+    background-color: var(--background-dark);
 }
 
 .headGame {
@@ -24,29 +26,52 @@
 }
 
 .counter {
-    background-color: #4b6b58;
+    background-color: var(--background-dark);
     padding: 10px 20px;
     border-radius: 10px;
     margin: 0;
-    color: white;
+    color: var(--primary);
+    font-weight: bold;
+    border: 1px solid var(--primary);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.counter:hover {
+    background-color: var(--background-dark);
+    border-color: var(--primary);
+    color: var(--primary);
+}
 
 .timer .progress {
     width: 100%;
     margin: 5px;
     margin-left: 1px;
-    background: #4b6b58;
+    background: var(--background-dark);
     padding: 5px 15px;
-    border-radius: 5px;
+    border-radius: 10px;
+    border: 1px solid var(--primary);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .timer .count {
     margin: 1px;
-    background: #4b6b58;
+    background: var(--background-dark);
     padding: 5px 15px;
-    border-radius: 5px;
-    color: white;
+    border-radius: 10px;
+    color: var(--primary);
+    font-weight: bold;
+    border: 1px solid var(--primary);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.timer .count:hover,
+.timer .progress:hover {
+    background-color: var(--background-dark);
+    border-color: var(--primary);
+    color: var(--primary);
 }
 
 .timer:first-child {
@@ -60,27 +85,32 @@
 .tableContainer {
     display: flex;
     margin-top: 10px;
-}
-
-.playerContainer,
-.playerOutContainer,
-.playerContainerLife {
-    max-width: fit-content;
-    background-color: #4b6b57;
-    /*    background-color: #c72f2f;*/
-    color: white;
-    border-radius: 5px;
-    margin: 5px 5px 0;
-    padding: 10px;
-    box-sizing: border-box;
+    padding: 20px;
 }
 
 .playerContainer {
-    background-color: #c72f2f;
+    max-width: fit-content;
+    background-color: var(--ui-active);
+    color: var(--text-dark);
+    border-radius: 10px;
+    margin: 5px 5px 0;
+    padding: 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    border: 1px solid var(--ui-border);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 30px !important;
+}
+
+.playerContainer:hover {
+    background-color: var(--ui-hover);
+    border-color: var(--ui-border);
 }
 
 .playerContainerLife {
-    /*background-color: #28A0DC;*/
+    background-color: var(--ui-active);
+    color: var(--text-dark);
     word-break: break-all;
 }
 
@@ -89,32 +119,15 @@
 }
 
 .playerOutContainer {
-    background-color: grey;
-}
-
-.aiContainer {
-    background: #174128;
-    color: white;
-    border-radius: 5px;
-    padding: 0px 10px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: fit-content;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-}
-
-.aiContainer> :first-child {
-    margin-bottom: 5px;
+    background-color: var(--ui-active);
+    color: var(--text-dark);
 }
 
 .displayPlayer {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
 .displayPlayer>img {
@@ -131,7 +144,7 @@
     flex: 5;
     max-height: 450px;
     height: 450px;
-    background: #174128;
+    background: var(--background-dark);
     border-radius: 5px;
     padding: 30px 30px 45px;
     margin-left: 5px;
@@ -139,17 +152,17 @@
 }
 
 .resultStep {
-    border: 1px solid #3b5f4b;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     width: 100%;
-    color: white;
+    color: var(--text-primary);
     margin: 30px 0;
+    padding: 20px;
 }
 
 .questionGame {
-    color: white;
+    color: var(--text-primary);
     text-align: center;
 }
 
@@ -159,13 +172,23 @@
     justify-content: center;
     width: 60px;
     margin-left: 10px;
-    background: rgb(40, 160, 220);
+    background-color: var(--ui-active);
+    color: var(--text-dark);
     border-radius: 10px;
     padding: 5px;
+    font-weight: bold;
+    border: 1px solid var(--ui-border);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.betZone:hover {
+    background-color: var(--ui-hover);
+    border-color: var(--ui-border);
 }
 
 .loadingScreen {
-    background-color: #2f2f2fd6;
+    background-color: rgba(47, 47, 47, 0.85);
     position: absolute;
     top: 0;
     bottom: 0;
@@ -247,7 +270,6 @@
         align-items: center;
     }
 
-
     .aiContainer p {
         margin: 0;
     }
@@ -286,5 +308,4 @@
     .playerContainer>p {
         display: none;
     }
-
 }

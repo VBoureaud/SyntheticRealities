@@ -1,11 +1,31 @@
 :root {
+  /* Color Variables */
+  --primary: #daa520;
+  --secondary: #d8b5ad;
+  --tertiary: #9cbcb4;
+  
+  --background-dark: #2f3437;
+  --background-light: #f9f7ef;
+  
+  --text-primary: #daa520;
+  --text-secondary: #d0d0d0;
+  --text-dark: #404040;
+  
+  --ui-border: #c0c0c0;
+  --ui-hover: #e0e0e0;
+  --ui-active: #b0b0b0;
+  
+  --status-success: #28DCA0;
+  --status-warning: #daa520;
+  --status-error: #ff0000;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--text-secondary);
+  background-color: var(--background-dark);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
