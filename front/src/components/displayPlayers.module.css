@@ -1,0 +1,183 @@
+.displayPlayer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.displayPlayer>img {
+    max-width: 64px;
+    margin: 0 auto;
+}
+
+.vsContainer {
+    max-width: 100%;
+    background: transparent;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.vsSection {
+    border: 1px solid #daa520;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(218, 165, 32, 0.3);    
+    flex: 1;
+    text-align: center;
+}
+
+.vsTitle {
+    font-weight: bold;
+    color: #daa520;
+    letter-spacing: 0.1em;
+    font-size: 1rem;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.vsValue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.vsValueText {
+    font-size: 20px;
+    color: var(--text-secondary);
+}
+
+.vsIcon {
+    font-size: 24px;
+    color: #daa520;
+}
+
+.vsDivider {
+    padding: 0 20px;
+    text-align: center;
+}
+
+.vsDividerTitle {
+    font-weight: bold;
+    color: #daa520;
+    letter-spacing: 0.1em;
+    font-size: 1.2rem;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.decorativeSeparator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.separatorLine {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #808080, transparent);
+    position: relative;
+}
+
+.separatorCircle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #daa520;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+    animation: glitch 3s ease-in-out infinite, glitch-scan 6s ease-in-out infinite;
+}
+
+.playerZone {
+    /* Keep existing styles */
+}
+
+.playerContainer {
+    background: transparent;
+    border: 1px solid #daa520;
+    box-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+    position: relative;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.choiceTitle {
+    margin: 8px 0;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: #daa520;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+    position: relative;
+}
+
+.sliderContainer {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.sliderWrapper {
+    flex: 5;
+}
+
+.betZone {
+    background: transparent;
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.betValue {
+    width: 45px;
+    color: #daa520;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.betIcon {
+    font-size: 24px;
+    margin-left: 5px;
+    color: #daa520;
+}
+
+.choiceButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.choiceButton {
+    color: #daa520;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #daa520;
+    padding: 8px 15px;
+    border-radius: 8px;
+    background: transparent;
+}
+
+@media screen and (max-width: 575px) {
+    .displayPlayer {
+        flex-direction: column-reverse;
+    }
+}

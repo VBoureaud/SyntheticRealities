@@ -123,18 +123,6 @@
     color: var(--text-dark);
 }
 
-.displayPlayer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 10px;
-}
-
-.displayPlayer>img {
-    max-width: 64px;
-    margin: 0 auto;
-}
-
 .displayCard {
     display: flex;
     flex-wrap: wrap;
@@ -295,10 +283,6 @@
 
     .headResult {
         flex-direction: column !important;
-    }
-
-    .displayPlayer {
-        flex-direction: column-reverse;
     }
 
     .playerZone {

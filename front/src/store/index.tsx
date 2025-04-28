@@ -83,8 +83,8 @@ export const GameContextProvider = (props: Props) => {
 	const initStore = async () => {
 		const defaultName = ('player_' + makeId(6));
 		const u = await getStorage('playerName');
-		await setPlayerName(u ? u : defaultName);
-		await storageData('playerName', u ? u : defaultName);
+		setPlayerName(u ? u : defaultName);
+		storageData('playerName', u ? u : defaultName);
 	}
 
 	const synchroniseGame = (newGame: string) => {
@@ -92,9 +92,9 @@ export const GameContextProvider = (props: Props) => {
 			setParty(newGame);
 	}
 
-	const saveName = async (newName: string) => {
+	const saveName = (newName: string) => {
 		setPlayerName(newName);
-		await storageData('playerName', newName);
+		storageData('playerName', newName);
 	}
 
 	const askCreateGame = middleware.askCreateGame;
@@ -106,7 +106,7 @@ export const GameContextProvider = (props: Props) => {
 	const handleGame = middleware.handleGame;
 
 	const handlePublish = async (message: any /*Message | Boolean*/) => {
-		await setLoadingGame(true);
+		setLoadingGame(true);
 		console.log('publish', loadingGame, message);
 		if (!message || typeof message == "boolean") {
 			setLoadingGame(false);
@@ -123,7 +123,6 @@ export const GameContextProvider = (props: Props) => {
 	}
 
 	const handleUpdate = async (message: any /*Message | Boolean*/) => {
-		console.log('update');
 		const gameUpdated = await middleware.handleGame(
 			games,
 			playerName,
