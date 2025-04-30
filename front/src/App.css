@@ -366,6 +366,7 @@ body {
   padding: 40px 0 40px 55px;
   box-sizing: border-box;
   flex-direction: column;
+  border: 2px solid #daa520;
 }
 
 .number-card-result {

@@ -50,7 +50,7 @@ const DisplayPlayers: React.FC<DisplayPlayersProps> = (props) => {
       {/* Decorative Separation */}
       <div className={styles.decorativeSeparator}>
         <div className={styles.separatorLine}>
-          <div className={styles.separatorCircle} />
+          {/* <div className={styles.separatorCircle} /> */}
         </div>
       </div>
 
@@ -63,27 +63,29 @@ const DisplayPlayers: React.FC<DisplayPlayersProps> = (props) => {
             <div className={styles.sliderContainer}>
               <span className={styles.sliderWrapper}>
                 <Slider 
-                  disabled={props.vote !== props.enumVote['init']} 
-                  value={props.hp} 
+                  disabled={props.vote !== props.enumVote['init'] || props.playersHp.player <= props.hpChoose.min} 
+                  value={props.playersHp.player <= props.hpChoose.min ? props.playersHp.player : props.hp}
                   onChange={(v: number) => props.setHp(v)} 
                   max={Math.min(props.hpChoose.max, props.playersHp.player)} 
-                  min={props.hpChoose.min} 
+                  min={props.playersHp.player <= props.hpChoose.min ? props.playersHp.player : props.hpChoose.min}
                   tooltip={{ open: false }}
-                  trackStyle={{ 
-                    background: '#daa520',
-                    boxShadow: '0 0 10px rgba(218, 165, 32, 0.3)'
-                  }}
-                  handleStyle={{ 
-                    borderColor: '#daa520',
-                    boxShadow: '0 0 10px rgba(218, 165, 32, 0.3)'
-                  }}
-                  railStyle={{
-                    background: 'rgba(218, 165, 32, 0.2)'
+                  styles={{
+                    track: {
+                      background: '#daa520',
+                      boxShadow: '0 0 10px rgba(218, 165, 32, 0.3)'
+                    },
+                    handle: {
+                      borderColor: '#daa520',
+                      boxShadow: '0 0 10px rgba(218, 165, 32, 0.3)'
+                    },
+                    rail: {
+                      background: 'rgba(218, 165, 32, 0.2)'
+                    }
                   }}
                 />
               </span>
               <div className={styles.betZone}>
-                <span className={styles.betValue}>{props.hp}</span>
+                <span className={styles.betValue}>{props.playersHp.player <= props.hpChoose.min ? props.playersHp.player : props.hp}</span>
                 <ThunderboltOutlined className={styles.betIcon} />
               </div>
             </div>
@@ -108,11 +110,11 @@ const DisplayPlayers: React.FC<DisplayPlayersProps> = (props) => {
               && (props.votes[e]
                 && props.votes[e].length < props.nbCards
                 || !props.votes[e])
-              && <Spin indicator={<LoadingOutlined style={{ color: '#daa520' }} spin />} />}
+              && <Spin indicator={<LoadingOutlined className={styles.loadingIcon} spin />} />}
             {props.playerName !== e
               && props.votes[e]
               && props.votes[e].length >= props.nbCards
-              && <p style={{ color: '#daa520' }}>Voted</p>}
+              && <p className={styles.votedText}>Voted</p>}
           </div>
         </div>
       )}

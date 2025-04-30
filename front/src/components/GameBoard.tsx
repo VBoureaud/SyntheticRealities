@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react"
 import { Games, Game } from "../store/types";
-import { LoadingOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { Spin, Progress } from 'antd';
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin, Progress } from "antd";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import { positifNumberOrZero, calculatorXp } from "../utils";
+import config from "../config";
+import styles from "./gameboard.module.css";
 import "react-photo-view/dist/react-photo-view.css";
-import { positifNumberOrZero, calculatorXp } from '../utils';
-import config from '../config';
-import styles from './gameboard.module.css';
-import { colors } from '../styles/colors';
 
 import Card from "./Card";
 import imageList from "./imageList";
-import DisplayPlayers from './DisplayPlayers';
+import DisplayPlayers from "./DisplayPlayers";
 
 type Props = {
   loading: boolean;
@@ -168,49 +167,16 @@ function GameBoard(props: Props) {
 
         {game && <div className={styles.headGame}>
           <p className={styles.counter}>{game?.cards.length} / {game?.maxCards}</p>
-          <div style={{ 
-            color: '#808080',
-            fontSize: '1rem',
-            fontWeight: 'bold',
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
-            border: '1px solid #808080',
-            padding: '8px 15px',
-            borderRadius: '8px',
-            background: 'transparent'
-          }} onClick={() => props.handleClose()}>Quit the game</div>
+          <div className={styles.quitButton} onClick={() => props.handleClose()}>Quit the game</div>
         </div>}
 
         {/* Screen Result step */}
         {game
           && vote === enumVote['result']
-          && <div className={styles.resultStep} style={{ 
-            border: '2px solid #daa520',
-            borderRadius: '8px',
-            padding: '20px',
-            margin: '30px 0',
-            background: 'transparent'
-          }}>
-            <h2 style={{ 
-              fontWeight: 'bold', 
-              color: '#daa520', 
-              letterSpacing: '0.1em', 
-              fontSize: '2rem',
-              marginBottom: '20px',
-              textTransform: 'uppercase'
-            }}>Result</h2>
+          && <div className={`${styles.resultStep} ${styles.resultStep}`}>
+            <h2 className={styles.resultTitle}>Result</h2>
             <div>
-              <h3 style={{ 
-                fontWeight: 'bold', 
-                color: '#daa520', 
-                letterSpacing: '0.1em', 
-                fontSize: '1.5rem',
-                marginBottom: '20px',
-                textTransform: 'uppercase',
-                textShadow: '0 0 10px rgba(218, 165, 32, 0.3)',
-                animation: 'glitch 3s ease-in-out infinite, glitch-scan 6s ease-in-out infinite'
-              }}>It was {
+              <h3 style={{ animation: 'glitch 3s ease-in-out infinite, glitch-scan 6s ease-in-out infinite' }} className={styles.resultSubtitle}>It was {
                 game.cardsAnswer[game.cardsAnswer.length - 1].isAI ?
                   'AI-Generated' : 'Real'
               }</h3>
@@ -225,17 +191,7 @@ function GameBoard(props: Props) {
               <p style={{ marginBottom: 0 }}>Answer in <b>{(game.votes[props.playerName][game.votes[props.playerName].length - 1].stepEnd - game.votes[props.playerName][game.votes[props.playerName].length - 1].stepStart) / 1000}s</b></p>
               <p style={{ marginTop: 0 }}>The faster you bet, the more points you get</p>
             </div>
-            <button style={{ 
-              maxWidth: '100px', 
-              margin: '40px auto',
-              color: '#daa520',
-              border: '2px solid #daa520',
-              background: 'transparent',
-              padding: '8px 15px',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontWeight: 'bold'
-            }} onClick={() => !props.loading && handleNext(game)}>
+            <button className={styles.nextButton} onClick={() => !props.loading && handleNext(game)}>
               {props.loading && 'Loading...'}
               {!props.loading && 'Next'}
             </button>
@@ -275,7 +231,7 @@ function GameBoard(props: Props) {
 
               <div className={styles.displayCard}>
                 {props.loading && <div className={styles.loadingScreen}>
-                  <Spin indicator={<LoadingOutlined style={{ fontSize: '50px', color: 'white' }} spin />} />
+                  <Spin indicator={<LoadingOutlined className={styles.spinIcon} spin />} />
                 </div>}
                 <PhotoProvider
                   loadingElement={<p style={{ color: 'white' }}>Loading</p>}
@@ -306,14 +262,7 @@ function GameBoard(props: Props) {
                         >
                           <img
                             src={imageList[validIndex - 1]}
-                            style={{ 
-                              zIndex: 11, 
-                              maxWidth: '100%', 
-                              maxHeight: '100%',
-                              margin: 'auto',
-                              display: 'block',
-                              objectFit: 'contain'
-                            }}
+                            className={styles.cardImage}
                             alt="game card"
                             onError={(e) => {
                               console.error('Image failed to load:', e);
