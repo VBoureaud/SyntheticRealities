@@ -55,6 +55,10 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.count {
+    width: 15px;
+}
+
 .timer .count {
     margin: 1px;
     background: var(--background-dark);
@@ -134,8 +138,8 @@
     /*height: 450px;*/
     background: var(--background-dark);
     border-radius: 5px;
-    padding: 30px 30px 45px;
-    margin-left: 5px;
+    /* padding: 30px 30px 45px; */
+    margin-left: 20px;
     position: relative;
 }
 
@@ -150,6 +154,7 @@
     border: 2px solid #daa520;
     border-radius: 8px;
     background: transparent;
+    box-sizing: border-box;
 }
 
 .questionGame {
@@ -256,69 +261,14 @@
     object-fit: contain;
 }
 
-.spinIcon {
-    font-size: 50px;
-    color: white;
-}
-
 .loadingIcon, .votedText {
     color: #daa520;
 }
 
-@media only screen and (max-width: 730px) {
-    .playerZone {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        margin-bottom: 25px;
-        flex-direction: column;
-    }
-
-    .questionGame {
-        display: none;
-    }
-
-    .displayCard {
-        flex: auto;
-        margin-bottom: 20px;
-        height: 450px;
-    }
-
-    .aiContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 5px;
-        max-width: fit-content;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-    }
-
-    .aiContainer> :first-child {
-        margin-right: 10px;
-        margin-bottom: 0;
-    }
-
-    .playerContainer {
-        width: 100%;
-        margin: 5px auto;
-    }
-
-    .playerContainerLife {
-        padding: 10px;
-        width: 100%;
-        margin: auto;
-    }
-}
-
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 770px) {
     .headGame {
-        flex-direction: column;
-    }
-
-    .headGame>div {
-        margin-top: 15px;
+        flex-direction: row;
+        margin-top: 0;
     }
 
     .headGame>p {
@@ -329,6 +279,7 @@
 
     .tableContainer {
         margin-top: 0px;
+        padding: 0;
         flex-direction: column-reverse;
         flex-wrap: wrap;
         align-items: center;
@@ -343,6 +294,8 @@
         margin-left: 0;
         margin-bottom: 0;
         background: initial;
+        height: 450px;
+        flex: auto;
     }
 
     .resultArea {
@@ -354,7 +307,7 @@
     }
 
     .containerResponsive {
-        flex-direction: column-reverse !important;
+        /* flex-direction: column-reverse !important; */
     }
 
     .headResult {

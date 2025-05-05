@@ -73,7 +73,7 @@ function Home() {
         <Input value={tmpName} onChange={(e) => setTmpName(e.target.value)} />
       </Modal>
 
-      <div style={{ maxWidth: '940px', margin: 'auto' }}>
+      <div style={{ maxWidth: '1145px', margin: 'auto' }}>
         <div className="inner-shadow">
           {!store.party && <div className="header">
             <h1 style={{ 

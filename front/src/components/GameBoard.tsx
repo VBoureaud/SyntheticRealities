@@ -51,6 +51,7 @@ function GameBoard(props: Props) {
         setVote(enumVote['init']);
         const maxHp = Math.min(config.hpChooseMax, playerHp);
         setHp(Math.max(config.hpChooseMin, Math.floor(maxHp / 2)));
+        setTimeToAnswer(props.games[props.party].timer);
       }
       setGame(game => ({ ...game, ...props.games[props.party] }));
     }
@@ -161,6 +162,22 @@ function GameBoard(props: Props) {
     return props.handleNext();
   }
 
+  const calculProgress = (progress: number, duration: number) => {
+    let res;
+    if (progress < 500) // close to 0, session ending
+        res = 0;
+    else if (progress > (duration - 1500)) // less than 1.5s, session started
+      res = 100;
+    else
+      res = progress / duration * 100;
+    return positifNumberOrZero(res);
+  }
+
+  const displayProgress = (progress: number) => {
+    const c = Math.round(timeToAnswer / 1000);
+    return progress < 500 ? 0 : parseInt(c + '');
+  }
+
   return (
     <>
       <div className={"container full-size " + styles.containerResponsive + ' ' + (vote === enumVote['result'] ? styles.headResult : '')}>
@@ -206,15 +223,15 @@ function GameBoard(props: Props) {
             {props.games[props.party].isTimerFix && <div className={styles.timer}>
               <p className={styles.progress}>
                 <Progress 
-                  percent={timeToAnswer / props.games[props.party].timer * 100} 
+                  percent={calculProgress(timeToAnswer, props.games[props.party].timer)}
                   showInfo={false}
                   strokeColor="#daa520"
                 />
               </p>
-              <p className={styles.count}>{positifNumberOrZero(parseInt(timeToAnswer / 1000 + ''))}</p>
+              <p className={styles.count}>{displayProgress(timeToAnswer)}</p>
             </div>}
             <div className={styles.tableContainer}>
-              {/* display players */}
+              {/* display players & actions */}
               <DisplayPlayers
                 playersHp={{ player: playerHp, ai: AIHp }}
                 playerName={props.playerName}
@@ -231,7 +248,7 @@ function GameBoard(props: Props) {
 
               <div className={styles.displayCard}>
                 {props.loading && <div className={styles.loadingScreen}>
-                  <Spin indicator={<LoadingOutlined className={styles.spinIcon} spin />} />
+                  <Spin indicator={<LoadingOutlined style={{ fontSize: '50px' }} spin />} />
                 </div>}
                 <PhotoProvider
                   loadingElement={<p style={{ color: 'white' }}>Loading</p>}
@@ -240,7 +257,6 @@ function GameBoard(props: Props) {
                     // Ensure we have a valid card index (1-10)
                     const lastCardIndex = game.cards[game.cards.length - 1];
                     const validIndex = ((lastCardIndex - 1) % 10) + 1; // This ensures we get a number between 1 and 10
-                    console.log('Card index:', lastCardIndex, 'Valid index:', validIndex);
                     
                     return (
                       <Card
@@ -248,7 +264,7 @@ function GameBoard(props: Props) {
                         showFace={false}
                         onClick={() => console.log('nothing-todo')}
                         style={{
-                          maxWidth: '300px',
+                          //maxWidth: '300px',
                           width: '100%',
                           height: '100%',
                           display: 'flex',

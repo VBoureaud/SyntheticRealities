@@ -1,0 +1,105 @@
+.container {
+    margin: 50px 0;
+}
+
+.victoryTable {
+    color: #daa520;
+    border-radius: 20px;
+    background: #2f3437;
+    text-align: left;
+    max-height: 70vh;
+    height: fit-content;
+    padding: 40px 0 40px 55px;
+    box-sizing: border-box;
+    flex-direction: column;
+    border: 2px solid #daa520;
+    display: flex;
+    flex-direction: row;
+}
+
+.resultArea {
+    /* Add any specific styles needed for result area */
+}
+
+.resultTitle {
+    margin-bottom: 0;
+}
+
+.drawText {
+    letter-spacing: 3px;
+    font-size: 35px;
+    margin: 20px 0;
+}
+
+.lostText, .wonText {
+    letter-spacing: 3px;
+    font-size: 35px;
+    margin: 20px 0;
+    text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+    text-transform: uppercase;
+}
+
+.scoreArea {
+    /* Add any specific styles needed for score area */
+}
+
+.resultScoreBox {
+    /* Add any specific styles needed for score box */
+}
+
+.closeButton {
+    background-color: transparent;
+    border: 2px solid #daa520;
+    color: #daa520;
+}
+
+.cardsContainer {
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.cardsWrapper {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.cardItem {
+    margin: 10px;
+    display: flex;
+}
+
+.cardNumber {
+    width: 100px;
+}
+
+.cardInfo {
+    /* Add any specific styles needed for card info */
+}
+
+.cardTitle {
+    color: #daa520;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.separator {
+    font-size: 50px;
+    display: block;
+    line-height: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2c533d;
+}
+
+.notPlayed {
+    color: #daa520;
+}
+
+@media screen and (max-width: 770px) {
+    .victoryTable {
+        max-height: 100%;
+    }
+}

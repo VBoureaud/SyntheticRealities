@@ -130,6 +130,7 @@
 
 .sliderWrapper {
     flex: 5;
+    padding: 0 15px 0 0;
 }
 
 .betZone {
@@ -176,8 +177,12 @@
     background: transparent;
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 770px) {
     .displayPlayer {
         flex-direction: column-reverse;
+    }
+    .playerZone {
+        margin-top: 10px;
+        margin-bottom: 20px;
     }
 }

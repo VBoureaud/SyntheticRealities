@@ -301,7 +301,7 @@ body {
 }
 
 .full-size {
-  max-width: 800px;
+  /* max-width: 800px; */
   margin: auto;
   max-height: 690px;
 }
@@ -316,7 +316,7 @@ body {
 .inner-shadow {
   background-color: #2f3437;
   border-radius: 5px;
-  padding: 20px 60px;
+  padding: 20px;
   box-sizing: border-box;
   margin-bottom: 40px;
 }
@@ -440,8 +440,16 @@ body {
 
 .closeBtn {
   width: fit-content;
-  margin-top: 40px;
-  background: #ff0000;
+  color: #808080;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid #808080;
+  padding: 8px 15px;
+  border-radius: 8px;
+  background: transparent;
 }
 
 .ant-table-thead {
@@ -451,6 +459,10 @@ body {
 
 .ant-table-cell {
   color: #daa520 !important;
+}
+
+.ant-table-wrapper .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #828282!important;
 }
 
 .rowScoreTable {
@@ -604,7 +616,6 @@ body {
   .victory-table {
     flex-direction: column;
     justify-content: center;
-    overflow: scroll;
     max-height: 100%;
     padding: 15px;
   }
