@@ -102,7 +102,8 @@ const DisplayPlayers: React.FC<DisplayPlayersProps> = (props) => {
                   className={styles.choiceButton}
                   onClick={() => props.vote === 0 && props.setVote(props.enumVote['ai-generated'])}
                 >
-                  AI-Generated
+                  <span className={styles.desktopView}>AI-Generated</span>
+                  <span className={styles.mobileView}>AI</span>
                 </div>
               </div>
             }

@@ -176,13 +176,36 @@
     border-radius: 8px;
     background: transparent;
 }
+.choiceButton > .mobileView { display: none; }
 
 @media screen and (max-width: 770px) {
     .displayPlayer {
         flex-direction: column-reverse;
+        margin: auto;
     }
     .playerZone {
         margin-top: 10px;
         margin-bottom: 20px;
     }
+}
+@media screen and (max-width: 450px) {
+    .sliderContainer {
+        flex-direction: column-reverse;
+    }
+    .sliderWrapper {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .vsContainer {
+        flex-direction: column;
+    }
+    .vsDivider {
+        margin: 15px 0;
+    }
+    .vsSection {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .choiceButton > .desktopView { display: none; }
+    .choiceButton > .mobileView { display: block; }
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Vote, Games, Game } from "../store/types";
+import { Games, Game } from "../store/types";
 import { calculatorXp, calculatorHp } from "../utils";
 import Confetti from 'react-confetti';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
@@ -65,8 +65,9 @@ function GameEndScreen(props: Props) {
                                 <h3>{playerHp < 0 ? 0 : playerHp}</h3>
                             </div>
                         </div>
-                        <div onClick={() => props.handleClose()} className={`button ${styles.closeButton}`}>Close the game</div>
+                        <div onClick={() => props.handleClose()} className={`${styles.closeButton}`}>Close the game</div>
                     </div>
+                    <div onClick={() => props.handleClose()} className={`${styles.closeButtonMobile}`}>Close the game</div>
                     <div className={styles.cardsContainer}>
                         <div className={styles.cardsWrapper}>
                             <PhotoProvider>
@@ -75,7 +76,7 @@ function GameEndScreen(props: Props) {
                                     return <div className={styles.cardItem} key={index}>
                                             <div>
                                                 <PhotoView src={imageList[game.cards[index] - 1]}>
-                                                    <span style={{ backgroundImage: 'url(' + imageList[game.cards[index] - 1] + ')' }} className={`number-card-result ${styles.cardNumber}`}></span>
+                                                    <span style={{ backgroundImage: 'url(' + imageList[game.cards[index] - 1] + ')' }} className={`${styles.numberCardResult} ${styles.cardNumber}`}></span>
                                                 </PhotoView>
                                             </div>
                                             <div className={styles.cardInfo}>

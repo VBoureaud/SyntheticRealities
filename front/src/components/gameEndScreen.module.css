@@ -17,9 +17,7 @@
     flex-direction: row;
 }
 
-.resultArea {
-    /* Add any specific styles needed for result area */
-}
+.resultArea {}
 
 .resultTitle {
     margin-bottom: 0;
@@ -40,22 +38,43 @@
 }
 
 .scoreArea {
-    /* Add any specific styles needed for score area */
+    margin-bottom: 35px;
+    max-width: 243px;
+    flex: 1;
 }
 
 .resultScoreBox {
-    /* Add any specific styles needed for score box */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.resultScoreBox h3 {
+    font-size: 3em;
+    margin: 0;
 }
 
-.closeButton {
-    background-color: transparent;
-    border: 2px solid #daa520;
+.closeButton, .closeButtonMobile {
+    width: fit-content;
+    height: fit-content;
     color: #daa520;
+    border: 2px solid #daa520;
+    background: transparent;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.closeButtonMobile {
+    display: none;
+    margin: auto;
+    margin-bottom: 35px;
 }
 
 .cardsContainer {
     max-height: 100%;
     overflow-y: auto;
+    flex: 1;
 }
 
 .cardsWrapper {
@@ -68,6 +87,7 @@
 .cardItem {
     margin: 10px;
     display: flex;
+    justify-content: center;
 }
 
 .cardNumber {
@@ -75,7 +95,8 @@
 }
 
 .cardInfo {
-    /* Add any specific styles needed for card info */
+    max-width: 250px;
+    width: 100%;
 }
 
 .cardTitle {
@@ -98,8 +119,57 @@
     color: #daa520;
 }
 
-@media screen and (max-width: 770px) {
+.numberCardResult {
+    background-color: #2f3437;
+    background-size: cover;
+    color: #daa520;
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 80px 25px;
+    display: block;
+    width: 125px;
+    margin: 0 20px;
+    text-shadow: 0 0 10px #daa520;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+@media screen and (max-width: 850px) {
+    .closeButton { 
+        display: none;
+    }
+    .closeButtonMobile {
+        display: block;
+    }
     .victoryTable {
+        flex-direction: column;
         max-height: 100%;
+        padding: 15px 5px;
+    }
+    .resultArea {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .resultArea {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .scoreArea {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 450px) {
+    .cardItem {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cardInfo {
+        text-align: center;
+        margin-bottom: 20px;
     }
 }

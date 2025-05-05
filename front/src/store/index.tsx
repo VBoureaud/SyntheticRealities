@@ -59,7 +59,7 @@ export const GameContextProvider = (props: Props) => {
 	const web2store = useContext(Web2Context);
 
 	useEffect(() => {
-		console.log({ loadingGame });
+		//console.log({ loadingGame });
 	}, [loadingGame]);
 
 	useEffect(() => {
@@ -107,7 +107,7 @@ export const GameContextProvider = (props: Props) => {
 
 	const handlePublish = async (message: any /*Message | Boolean*/) => {
 		setLoadingGame(true);
-		console.log('publish', loadingGame, message);
+		// console.log('publish', loadingGame, message);
 		if (!message || typeof message == "boolean") {
 			setLoadingGame(false);
 			return false;

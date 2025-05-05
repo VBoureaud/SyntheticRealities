@@ -199,7 +199,7 @@
 
 
 
-.quitButton {
+.quitButton, .quitButtonMobile {
     color: #808080;
     font-size: 1rem;
     font-weight: bold;
@@ -210,6 +210,9 @@
     padding: 8px 15px;
     border-radius: 8px;
     background: transparent;
+}
+.quitButtonMobile { 
+    display: none;
 }
 
 .resultTitle {
@@ -320,5 +323,17 @@
 
     .playerContainer>p {
         display: none;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .quitButton {
+        display: none;
+    }
+    .quitButtonMobile {
+        display: block;
+    }
+    .tableContainer {
+        align-items: baseline;
     }
 }

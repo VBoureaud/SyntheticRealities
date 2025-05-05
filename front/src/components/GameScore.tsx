@@ -11,7 +11,7 @@ const columns: TableColumnsType<ScoreType> = [
     {
         title: 'Pos',
         dataIndex: 'key',
-        render: (text) => <div className="tabPosKey">{text + 1}</div>,
+        render: (text) => <div className="tabPosKeyTable">{text + 1}</div>,
     },
     {
         title: 'PlayerName',
@@ -25,7 +25,7 @@ const columns: TableColumnsType<ScoreType> = [
     {
         title: 'Score',
         dataIndex: 'score',
-        render: (text) => <div className="scoreBox">{text}</div>,
+        render: (text) => <div className="scoreBoxTable">{text}</div>,
         sorter: (a, b) => a.score - b.score,
     },
     {

@@ -185,6 +185,7 @@ function GameBoard(props: Props) {
         {game && <div className={styles.headGame}>
           <p className={styles.counter}>{game?.cards.length} / {game?.maxCards}</p>
           <div className={styles.quitButton} onClick={() => props.handleClose()}>Quit the game</div>
+          <div className={styles.quitButtonMobile} onClick={() => props.handleClose()}>Quit</div>
         </div>}
 
         {/* Screen Result step */}
@@ -254,10 +255,11 @@ function GameBoard(props: Props) {
                   loadingElement={<p style={{ color: 'white' }}>Loading</p>}
                 >
                   {game && (() => {
-                    // Ensure we have a valid card index (1-10)
-                    const lastCardIndex = game.cards[game.cards.length - 1];
-                    const validIndex = ((lastCardIndex - 1) % 10) + 1; // This ensures we get a number between 1 and 10
-                    
+                    // Ensure we have a valid card index (1-10) @giulio
+                    // const lastCardIndex = game.cards[game.cards.length - 1];
+                    // const validIndex = ((lastCardIndex - 1) % 10) + 1; // This ensures we get a number between 1 and 10
+                    const validIndex = game.cards[game.cards.length - 1];
+
                     return (
                       <Card
                         autoReturn

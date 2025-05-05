@@ -11,7 +11,6 @@ import { EditOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import Web2Context from "../store/web2store";
 import config from "../config";
-import { colors } from '../styles/colors';
 
 function Home() {
   const store = useContext(GameContext);
@@ -77,13 +76,13 @@ function Home() {
         <div className="inner-shadow">
           {!store.party && <div className="header">
             <h1 style={{ 
-              fontWeight: 'bold', 
-              color: colors.mustardYellow, 
-              letterSpacing: '0.1em', 
+              fontWeight: 'bold',
+              letterSpacing: '0.1em',
               fontSize: '3.5rem',
-              marginBottom: '3rem'
+              marginBottom: '3rem',
+              wordBreak: 'break-word',
             }}>Synthetic Realities</h1>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', alignItems: 'center', marginBottom: '2rem' }}>
+            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '15px', alignItems: 'center', marginBottom: '2rem' }}>
               <div className="glitch-line glitch-line-1" />
               <div className="glitch-line glitch-line-2" />
               <div className="glitch-line glitch-line-3" />
@@ -97,7 +96,6 @@ function Home() {
                   fontSize: '1.25rem'
                 }}>Hello <strong style={{ color: '#daa520' }}>{store.playerName}</strong></p>
                 <EditOutlined onClick={() => setIsModalOpen(true)} style={{ 
-                  color: colors.blushPink, 
                   marginLeft: '10px', 
                   cursor: 'pointer',
                   fontSize: '1.25rem'
