@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Vote, Games, Game } from "../store/types";
+import { Games, Game } from "../store/types";
 import { calculatorXp, calculatorHp } from "../utils";
 import Confetti from 'react-confetti';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import imageList from "./imageList";
+import styles from './gameEndScreen.module.css';
 
 type Props = {
     playerName: string;
@@ -42,65 +45,59 @@ function GameEndScreen(props: Props) {
     return (
         <>
             {aiHp <= 0 && playerHp > 0 && <Confetti recycle={false} />}
-            <div style={{ margin: '50px 0' }} className="container">
+            <div className={styles.container}>
                 {/* Screen result */}
-                {game && <div className="container victory-table" style={{ alignItems: 'normal' }}>
-                    <div className="resultArea">
+                {game && <div className={`${styles.container} ${styles.victoryTable}`}>
+                    <div className={styles.resultArea}>
                         <div>
-                            <h2 style={{ marginBottom: '0' }}>Result</h2>
-                            {aiHp === playerHp && <h3 style={{ letterSpacing: '3px', fontSize: '35px', margin: '20px 0' }}>Draw !</h3>}
-                            {aiHp > playerHp && <h3 style={{ 
-                                letterSpacing: '3px', 
-                                fontSize: '35px', 
-                                margin: '20px 0',
-                                animation: 'glitch 1s linear infinite',
-                                textShadow: '2px 2px #ff0000, -2px -2px #00ff00',
-                                textTransform: 'uppercase'
-                            }}>You lost!</h3>}
-                            {aiHp < playerHp && <h3 style={{ 
-                                letterSpacing: '3px', 
-                                fontSize: '35px', 
-                                margin: '20px 0',
-                                animation: 'glitch 1s linear infinite',
-                                textShadow: '2px 2px #ff0000, -2px -2px #00ff00',
-                                textTransform: 'uppercase'
-                            }}>YOU WON!</h3>}
+                            <h2 className={styles.resultTitle}>Result</h2>
+                            {aiHp === playerHp && <h3 className={styles.drawText}>Draw !</h3>}
+                            {aiHp > playerHp && <h3 style={{ animation: 'glitch 1s linear infinite' }} className={styles.lostText}>You lost!</h3>}
+                            {aiHp < playerHp && <h3 style={{ animation: 'glitch 1s linear infinite' }} className={styles.wonText}>YOU WON!</h3>}
                         </div>
-                        <div className="scoreArea">
-                            <div className="resultScoreBox">
+                        <div className={styles.scoreArea}>
+                            <div className={styles.resultScoreBox}>
                                 <p>AI HP</p>
                                 <h3>{aiHp < 0 ? 0 : aiHp}</h3>
                             </div>
-                            <div className="resultScoreBox">
+                            <div className={styles.resultScoreBox}>
                                 <p>Player HP</p>
                                 <h3>{playerHp < 0 ? 0 : playerHp}</h3>
                             </div>
                         </div>
-                        <div onClick={() => props.handleClose()} className="button closeBtn" style={{ backgroundColor: 'transparent', border: '2px solid #daa520', color: '#daa520' }}>Close the game</div>
+                        <div onClick={() => props.handleClose()} className={`${styles.closeButton}`}>Close the game</div>
                     </div>
-                    <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-                        <div style={{ justifyContent: 'center', display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
-                            {game && game.cards.map((cardId: number, index: number) => {
-                                const vote = game.votes[props.playerName]?.[index];
-                                return <div style={{ margin: '10px', display: 'flex' }} key={index}>
-                                    <p>
-                                        <span style={{ color: '#daa520', fontSize: '1.2rem', marginBottom: '10px', display: 'block' }}>Card {index + 1}</span>
-                                        {vote ? <>
-                                            Your answer: <b>{vote.choice + 1 === enumVote['real'] ? 'Real' : 'AI-Generated'}</b><br />
-                                            you bet: <b>{vote.hp}</b><br />
+                    <div onClick={() => props.handleClose()} className={`${styles.closeButtonMobile}`}>Close the game</div>
+                    <div className={styles.cardsContainer}>
+                        <div className={styles.cardsWrapper}>
+                            <PhotoProvider>
+                                {game && game.cards.map((cardId: number, index: number) => {
+                                    const vote = game.votes[props.playerName]?.[index];
+                                    return <div className={styles.cardItem} key={index}>
+                                            <div>
+                                                <PhotoView src={imageList[game.cards[index] - 1]}>
+                                                    <span style={{ backgroundImage: 'url(' + imageList[game.cards[index] - 1] + ')' }} className={`${styles.numberCardResult} ${styles.cardNumber}`}></span>
+                                                </PhotoView>
+                                            </div>
+                                            <div className={styles.cardInfo}>
+                                                {vote ? <>
+                                                    <span className={styles.cardTitle}>Card {index + 1}</span>
+                                                    Your answer: <b>{vote.choice + 1 === enumVote['real'] ? 'Real' : 'AI-Generated'}</b><br />
+                                                    you bet: <b>{vote.hp}</b><br />
 
-                                            <span style={{ fontSize: '50px', display: 'block', lineHeight: '0', marginBottom: '20px', textAlign: 'center', color: '#2c533d' }}>.</span>
-                                            It was: <b>{game.cardsAnswer[index].isHuman ? 'Real' : 'AI-Generated'}</b><br />
-                                            You {vote.choice == Number(game.cardsAnswer[index].isAI) ? ' win ' : ' lost: '}<b>{calculatorXp(
-                                                vote.stepStart,
-                                                vote.stepEnd,
-                                                vote.hp,
-                                                vote.choice == Number(game.cardsAnswer[index].isAI)
-                                            )}</b>
-                                        </> : <span style={{ color: '#daa520' }}>Not played</span>}
-                                    </p>
-                                </div>
-                            })}
+                                                    <span className={styles.separator}>.</span>
+                                                    It was: <b>{game.cardsAnswer[index].isHuman ? 'Real' : 'AI-Generated'}</b><br />
+                                                    You {vote.choice == Number(game.cardsAnswer[index].isAI) ? ' win ' : ' lost: '}<b>{calculatorXp(
+                                                        vote.stepStart,
+                                                        vote.stepEnd,
+                                                        vote.hp,
+                                                        vote.choice == Number(game.cardsAnswer[index].isAI)
+                                                    )}</b>
+                                                </> : <span className={styles.notPlayed}>Not played</span>}
+                                            </div>
+                                    </div>
+                                })}
+                            </PhotoProvider>
                         </div>
                     </div>
                 </div>}

@@ -37,10 +37,10 @@ export function calculateScoreByVote(playerVote: Vote[], cards: number[], cardRe
       const choice = playerVote[i].choice;
       const idChoice = findByIdInArrayOfObj(cardResult, cards[i]);
       const card = idChoice ? cardResult[idChoice] : null;
-      if (!card || choice != card.choice)
+      /*if (!card || choice != card.choice)
          console.log('hp loss');
       else
-         console.log('hp gain');
+         console.log('hp gain');*/
    }
    return 0;
 }

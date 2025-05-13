@@ -1,0 +1,175 @@
+.container {
+    margin: 50px 0;
+}
+
+.victoryTable {
+    color: #daa520;
+    border-radius: 20px;
+    background: #2f3437;
+    text-align: left;
+    max-height: 70vh;
+    height: fit-content;
+    padding: 40px 0 40px 55px;
+    box-sizing: border-box;
+    flex-direction: column;
+    border: 2px solid #daa520;
+    display: flex;
+    flex-direction: row;
+}
+
+.resultArea {}
+
+.resultTitle {
+    margin-bottom: 0;
+}
+
+.drawText {
+    letter-spacing: 3px;
+    font-size: 35px;
+    margin: 20px 0;
+}
+
+.lostText, .wonText {
+    letter-spacing: 3px;
+    font-size: 35px;
+    margin: 20px 0;
+    text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+    text-transform: uppercase;
+}
+
+.scoreArea {
+    margin-bottom: 35px;
+    max-width: 243px;
+    flex: 1;
+}
+
+.resultScoreBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.resultScoreBox h3 {
+    font-size: 3em;
+    margin: 0;
+}
+
+.closeButton, .closeButtonMobile {
+    width: fit-content;
+    height: fit-content;
+    color: #daa520;
+    border: 2px solid #daa520;
+    background: transparent;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.closeButtonMobile {
+    display: none;
+    margin: auto;
+    margin-bottom: 35px;
+}
+
+.cardsContainer {
+    max-height: 100%;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.cardsWrapper {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.cardItem {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.cardNumber {
+    width: 100px;
+}
+
+.cardInfo {
+    max-width: 250px;
+    width: 100%;
+}
+
+.cardTitle {
+    color: #daa520;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.separator {
+    font-size: 50px;
+    display: block;
+    line-height: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2c533d;
+}
+
+.notPlayed {
+    color: #daa520;
+}
+
+.numberCardResult {
+    background-color: #2f3437;
+    background-size: cover;
+    color: #daa520;
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 80px 25px;
+    display: block;
+    width: 125px;
+    margin: 0 20px;
+    text-shadow: 0 0 10px #daa520;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+@media screen and (max-width: 850px) {
+    .closeButton { 
+        display: none;
+    }
+    .closeButtonMobile {
+        display: block;
+    }
+    .victoryTable {
+        flex-direction: column;
+        max-height: 100%;
+        padding: 15px 5px;
+    }
+    .resultArea {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .resultArea {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .scoreArea {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 450px) {
+    .cardItem {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cardInfo {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}

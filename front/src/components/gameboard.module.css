@@ -55,6 +55,10 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.count {
+    width: 15px;
+}
+
 .timer .count {
     margin: 1px;
     background: var(--background-dark);
@@ -85,7 +89,7 @@
 .tableContainer {
     display: flex;
     margin-top: 10px;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 .playerContainer {
@@ -123,18 +127,6 @@
     color: var(--text-dark);
 }
 
-.displayPlayer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 10px;
-}
-
-.displayPlayer>img {
-    max-width: 64px;
-    margin: 0 auto;
-}
-
 .displayCard {
     display: flex;
     flex-wrap: wrap;
@@ -143,11 +135,11 @@
     width: 100%;
     flex: 5;
     max-height: 450px;
-    height: 450px;
+    /*height: 450px;*/
     background: var(--background-dark);
     border-radius: 5px;
-    padding: 30px 30px 45px;
-    margin-left: 5px;
+    /* padding: 30px 30px 45px; */
+    margin-left: 20px;
     position: relative;
 }
 
@@ -157,8 +149,12 @@
     justify-content: space-around;
     width: 100%;
     color: var(--text-primary);
-    margin: 30px 0;
+    margin: 15px 0;
     padding: 20px;
+    border: 2px solid #daa520;
+    border-radius: 8px;
+    background: transparent;
+    box-sizing: border-box;
 }
 
 .questionGame {
@@ -201,60 +197,81 @@
     border-radius: 10px;
 }
 
-@media only screen and (max-width: 730px) {
-    .playerZone {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        margin-bottom: 25px;
-        flex-direction: column;
-    }
 
-    .questionGame {
-        display: none;
-    }
 
-    .displayCard {
-        flex: auto;
-        margin-bottom: 20px;
-        height: 450px;
-    }
-
-    .aiContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 5px;
-        max-width: fit-content;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-    }
-
-    .aiContainer> :first-child {
-        margin-right: 10px;
-        margin-bottom: 0;
-    }
-
-    .playerContainer {
-        width: 100%;
-        margin: 5px auto;
-    }
-
-    .playerContainerLife {
-        padding: 10px;
-        width: 100%;
-        margin: auto;
-    }
+.quitButton, .quitButtonMobile {
+    color: #808080;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid #808080;
+    padding: 8px 15px;
+    border-radius: 8px;
+    background: transparent;
+}
+.quitButtonMobile { 
+    display: none;
 }
 
-@media screen and (max-width: 575px) {
-    .headGame {
-        flex-direction: column;
-    }
+.resultTitle {
+    font-weight: bold;
+    color: #daa520;
+    letter-spacing: 0.1em;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
 
-    .headGame>div {
-        margin-top: 15px;
+.resultSubtitle {
+    font-weight: bold;
+    color: #daa520;
+    letter-spacing: 0.1em;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+}
+
+.nextButton {
+    /*max-width: 100px;*/
+    margin: 40px auto;
+    color: #daa520;
+    border: 2px solid #daa520;
+    background: transparent;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cardStyle {
+    max-width: 300px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardImage {
+    z-index: 11;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.loadingIcon, .votedText {
+    color: #daa520;
+}
+
+@media screen and (max-width: 770px) {
+    .headGame {
+        flex-direction: row;
+        margin-top: 0;
     }
 
     .headGame>p {
@@ -265,6 +282,7 @@
 
     .tableContainer {
         margin-top: 0px;
+        padding: 0;
         flex-direction: column-reverse;
         flex-wrap: wrap;
         align-items: center;
@@ -279,6 +297,8 @@
         margin-left: 0;
         margin-bottom: 0;
         background: initial;
+        height: 450px;
+        flex: auto;
     }
 
     .resultArea {
@@ -290,15 +310,11 @@
     }
 
     .containerResponsive {
-        flex-direction: column-reverse !important;
+        /* flex-direction: column-reverse !important; */
     }
 
     .headResult {
         flex-direction: column !important;
-    }
-
-    .displayPlayer {
-        flex-direction: column-reverse;
     }
 
     .playerZone {
@@ -307,5 +323,17 @@
 
     .playerContainer>p {
         display: none;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .quitButton {
+        display: none;
+    }
+    .quitButtonMobile {
+        display: block;
+    }
+    .tableContainer {
+        align-items: baseline;
     }
 }

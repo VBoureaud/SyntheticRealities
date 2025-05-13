@@ -1,31 +1,225 @@
-.containerInitGame {
-    color: white;
+.container {
+    color: #daa520;
+    padding: 25px;
+    margin: auto;
+    margin-bottom: 25px;
+    max-width: 750px;
+    background: #2f3437;
+    border-radius: 10px;
+    border: 1px solid #daa520;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.containerPlayer {
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.headerText {
+    color: #b0b0b0;
+    font-size: 1.1rem;
+}
+
+.headerTextBold {
+    color: #b0b0b0;
+    font-weight: bold;
+}
+
+.playersContainer {
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
-.player {
+.playerCard {
     padding: 15px;
-    background: #28DCA0;
-    color: white;
+    background: #2f3437;
+    color: #daa520;
     font-weight: bold;
-    text-shadow: 1px 1px 1px #777;
+    font-size: 2rem;
+    text-align: center;
 }
 
-.playerCount,
-.launchBtn {
-    font-weight: bold;
-    font-size: 17px;
+.playerName {
+    animation: glitch 3s ease-in-out infinite, glitch-scan 6s ease-in-out infinite;
+    position: relative;
+    display: inline-block;
 }
 
-.launchBtn {
-    background: #28A0DC;
-    color: white;
-    padding: 10px;
+.glitchContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.glitchLine1 {
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #daa520, transparent);
+    animation: glitch-line-1 4s ease-in-out infinite;
+}
+
+.glitchLine2 {
+    width: 45%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #daa520, transparent);
+    animation: glitch-line-2 3.5s ease-in-out infinite;
+    opacity: 0.8;
+}
+
+.glitchLine3 {
+    width: 30%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #daa520, transparent);
+    animation: glitch-line-3 3s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+.waitingContainer {
+    background: #2f3437;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+.waitingText {
+    font-weight: normal;
+    margin-left: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #daa520;
+}
+
+.spinIcon {
+    color: #daa520;
+}
+
+.contentContainer {
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.tagline {
+    color: #b0b0b0;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    margin: auto;
+    margin-bottom: 2.5rem;
+    margin-top: -0.5rem;
+    max-width: 450px;
+    text-transform: none;
+    font-weight: normal;
+    text-shadow: none;
+    text-align: center;
+    animation: glitch 3s ease-in-out infinite, glitch-scan 6s ease-in-out infinite;
+    position: relative;
+}
+
+.launchButton {
+    background: transparent;
+    color: #daa520;
+    border: 1px solid #daa520;
+    padding: 12px 24px;
+    border-radius: 8px;
     cursor: pointer;
-    text-shadow: 1px 1px 1px #777;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.launchButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+    background: rgba(218, 165, 32, 0.1);
+    border: 1px solid #daa520;
+}
+
+/* Animation keyframes */
+@keyframes glitch {
+    0% {
+        text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    14% {
+        text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    15% {
+        text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    49% {
+        text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    50% {
+        text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    99% {
+        text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    100% {
+        text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+}
+
+@keyframes glitch-scan {
+    0% {
+        text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+    }
+    25% {
+        text-shadow: 0 3px 10px rgba(218, 165, 32, 0.3);
+    }
+    50% {
+        text-shadow: 0 -3px 10px rgba(218, 165, 32, 0.3);
+    }
+    75% {
+        text-shadow: 0 3px 10px rgba(218, 165, 32, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+    }
+}
+
+@keyframes glitch-line-1 {
+    0% {
+        transform: scaleX(1);
+    }
+    50% {
+        transform: scaleX(1.1);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes glitch-line-2 {
+    0% {
+        transform: scaleX(1.1);
+    }
+    50% {
+        transform: scaleX(0.9);
+    }
+    100% {
+        transform: scaleX(1.1);
+    }
+}
+
+@keyframes glitch-line-3 {
+    0% {
+        transform: scaleX(0.9);
+    }
+    50% {
+        transform: scaleX(1.2);
+    }
+    100% {
+        transform: scaleX(0.9);
+    }
 }

@@ -58,7 +58,8 @@
   width: 100%;
   z-index: 1;
   border-radius: 7px;
-  background: #2f3437;
+  /* background: #2f3437; */
+  background: linear-gradient(135deg, #323232 0% 25%, #3c3c3c 25% 50%, #2f2f2f 50% 75%, #1d1d1d 75%);  
 }
 
 .main_panel {
@@ -68,6 +69,7 @@
   height: 100%;
   position: absolute;
   width: 100%;
+  background: #444;
 }
 
 .card_front {
