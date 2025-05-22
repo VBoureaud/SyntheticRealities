@@ -5,3 +5,5 @@ info.txt
 front/src/assets/*.jpg
 front/src/assets_old/*
 .DS_Store
+*/dist/*
+server_old/*
