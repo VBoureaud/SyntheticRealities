@@ -10,19 +10,19 @@ const config = {
     choices: [0, 1],
     maxCards: 10,
     voteTimerTolerance: 1000,
-    api: "http://127.0.0.1:3002/v1",
+    api: "http://127.0.0.1:3001/v1",
     //api: "https://whomadethis-server.vercel.app/v1",
     online: true,
 };
 
 export const apiServer = {
-    newGame: { url: config.api + "/games", method: "POST" },
-    getGame: { url: config.api + "/games/", method: "GET" },
-    updateGame: { url: config.api + "/games/update/", method: "PATCH" },
-    allGames: { url: config.api + "/games/all", method: "GET" },
-    allGamesScore: { url: config.api + "/games/score", method: "GET" },
-    getCardDetail: { url: config.api + "/card/info/", method: "GET" },
-    getCard: { url: config.api + "/card/new/", method: "GET" },
+    allGames: { url: config.api + "/game", method: "GET" },
+    newGame: { url: config.api + "/game", method: "POST" },
+    getGame: { url: config.api + "/game/", method: "GET" },
+    updateGame: { url: config.api + "/game/", method: "PATCH" },
+    allGamesScore: { url: config.api + "/game/score", method: "GET" },
+    getCardDetail: { url: config.api + "/cards/get/", method: "GET" },
+    getCard: { url: config.api + "/cards/get/", method: "GET" },
 };
 
 export default config;
