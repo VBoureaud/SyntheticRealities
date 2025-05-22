@@ -45,53 +45,18 @@ components:
       properties:
         name:
           type: string
+          description: The name of the card
         isHuman:
           type: boolean
-        isAi:
+          description: Indicates if the card is human
+        isAI:
           type: boolean
-
-    Error:
-      type: object
-      properties:
-        code:
-          type: number
-        message:
+          description: Indicates if the card is AI
+        original_name:
           type: string
-
-  responses:
-    DuplicateGame:
-      description: Game already created
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            code: 400
-            message: User already created
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            code: 401
-            message: Please authenticate
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            code: 403
-            message: Forbidden
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            code: 404
-            message: Not found
+          description: The original name of the card
+      required:
+        - name
+        - isHuman
+        - isAI
+        - original_name

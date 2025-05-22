@@ -203,8 +203,8 @@ export const handleGame = async (
                 maxCards: message.maxCards ? message.maxCards : config.maxCards,
             });
             if (!res) return false;
-            if (synchroniseGame) synchroniseGame(res.game.name);
-            gameName = res.game.name;
+            if (synchroniseGame) synchroniseGame(res.name);
+            gameName = res.name;
         }
         previousState[gameName] = {
             players: [message.name],
@@ -231,8 +231,8 @@ export const handleGame = async (
             const res = await web2store.getCard({
                 partyName: message.gameName,
             });
-            if (!res && res !== 0) return false;
-            newItem = parseInt(res);
+            if (!res && res !== 0 && res.newCard) return false;
+            newItem = parseInt(res.newCard);
         } else newItem = parseInt(getRandomArbitrary(0, config.imagesNumber) + '');
 
         previousState[message.gameName] = {
@@ -246,8 +246,8 @@ export const handleGame = async (
         if (web2store && config.online) {
             const res = await web2store.updateGame({
                 partyName: message.gameName,
-                votes: {
-                    playerName: message.name,
+                playerName: message.name,
+                vote: {
                     ...message.vote,
                 }
             });
