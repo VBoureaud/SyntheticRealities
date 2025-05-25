@@ -232,7 +232,7 @@ export const handleGame = async (
                 partyName: message.gameName,
             });
             if (!res && res !== 0 && res.newCard) return false;
-            newItem = parseInt(res.newCard);
+            newItem = res.newCard;
         } else newItem = parseInt(getRandomArbitrary(0, config.imagesNumber) + '');
 
         previousState[message.gameName] = {

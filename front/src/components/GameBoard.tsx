@@ -3,7 +3,7 @@ import { Games, Game } from "../store/types";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin, Progress } from "antd";
 import { PhotoProvider, PhotoView } from "react-photo-view";
-import { positifNumberOrZero, calculatorXp } from "../utils";
+import { positifNumberOrZero, calculatorXp, findStrInArray } from "../utils";
 import config from "../config";
 import styles from "./gameboard.module.css";
 import "react-photo-view/dist/react-photo-view.css";
@@ -255,10 +255,7 @@ function GameBoard(props: Props) {
                   loadingElement={<p style={{ color: 'white' }}>Loading</p>}
                 >
                   {game && (() => {
-                    // Ensure we have a valid card index (1-10) @giulio
-                    // const lastCardIndex = game.cards[game.cards.length - 1];
-                    // const validIndex = ((lastCardIndex - 1) % 10) + 1; // This ensures we get a number between 1 and 10
-                    const validIndex = game.cards[game.cards.length - 1];
+                    const validIndex = findStrInArray(imageList, game.cards[game.cards.length - 1]);
 
                     return (
                       <Card
@@ -276,15 +273,15 @@ function GameBoard(props: Props) {
                         imgLoaded={true}
                       >
                         <PhotoView
-                          src={imageList[validIndex - 1]}
+                          src={imageList[validIndex]}
                         >
                           <img
-                            src={imageList[validIndex - 1]}
+                            src={imageList[validIndex]}
                             className={styles.cardImage}
                             alt="game card"
                             onError={(e) => {
                               console.error('Image failed to load:', e);
-                              console.error('Attempted to load image at index:', validIndex - 1);
+                              console.error('Attempted to load image at index:', validIndex);
                             }}
                           />
                         </PhotoView>

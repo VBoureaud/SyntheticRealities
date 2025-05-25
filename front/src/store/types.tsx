@@ -14,7 +14,7 @@ export type Game = {
     isTimerFix: boolean;
     votes: { [playerName: string]: Vote[] };
     playersHP: { [playerName: string]: number[] };
-    cards: number[];
+    cards: string[];
     cardsAnswer: CardAnswer[];
     maxCards: number;
     name?: string;

@@ -118,3 +118,11 @@ export const calculatorHp = (votes: any, cards: any, hp: number, playerWinIsMalu
    }
    return newHp;
 }
+
+export const findStrInArray = (array: string[], toFind: string) => {
+   for (let index = 0; index < array.length; index++) {
+      if (array[index].indexOf(toFind) !== -1)
+         return index;
+   }
+   return -1;
+}
