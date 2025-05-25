@@ -2,8 +2,7 @@ node_modules/*
 */node_modules/*
 info.txt
 .env
-front/src/assets/*.jpg
-front/src/assets_old/*
 .DS_Store
 */dist/*
 server_old/*
+front/src/assets/imgs/*.jpg

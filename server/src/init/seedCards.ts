@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import config from '../config';
 import logger from '../config/logger';
 import { Card } from '../models/card.model';
-import cardsJson from './cards.json';
+const cardsJson = require('./new_cards.json');
 
 let server: any;
 
