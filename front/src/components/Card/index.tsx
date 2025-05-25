@@ -15,7 +15,7 @@ const Card: React.FC<Props> = (props) => {
   const [showFace, setShowFace] = useState<boolean>(props.showFace !== undefined ? props.showFace : false);
   const [firstShow, setFirstShow] = useState<boolean>(true);
   const [imgLoaded, setImgLoaded] = useState<boolean>(props.imgLoaded);
-  const [opacityVisible, setOpacityVisible] = useState<boolean>(true);
+  const [opacityVisible/*, setOpacityVisible*/] = useState<boolean>(true);
 
   useEffect(() => {
     if (props.autoReturn) {
@@ -32,18 +32,18 @@ const Card: React.FC<Props> = (props) => {
     }
   }, [props.imgLoaded]);
 
-  const toggleVisible = () => {
-    setShowFace(!showFace);
-    setFirstShow(false);
-  };
+  // const toggleVisible = () => {
+  //   setShowFace(!showFace);
+  //   setFirstShow(false);
+  // };
 
-  const toggleOpacity = () => {
-    setOpacityVisible(!opacityVisible);
-  };
+  // const toggleOpacity = () => {
+  //   setOpacityVisible(!opacityVisible);
+  // };
 
-  const getFaceVisibile = () => {
-    return showFace;
-  };
+  // const getFaceVisibile = () => {
+  //   return showFace;
+  // };
 
   const handleClick = () => {
     if (props.onClick) {

@@ -1,4 +1,4 @@
-# WhoMadeThis
+# Synthetic Realities
 
 ## Game Overview
 

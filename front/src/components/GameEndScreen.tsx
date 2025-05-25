@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Games, Game } from "../store/types";
-import { calculatorXp, calculatorHp } from "../utils";
+import { calculatorXp, calculatorHp, findStrInArray } from "../utils";
 import Confetti from 'react-confetti';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import imageList from "./imageList";
@@ -71,12 +71,13 @@ function GameEndScreen(props: Props) {
                     <div className={styles.cardsContainer}>
                         <div className={styles.cardsWrapper}>
                             <PhotoProvider>
-                                {game && game.cards.map((cardId: number, index: number) => {
+                                {game && game.cards.map((cardId: string, index: number) => {
+                                    const validIndex = findStrInArray(imageList, cardId);
                                     const vote = game.votes[props.playerName]?.[index];
                                     return <div className={styles.cardItem} key={index}>
                                             <div>
-                                                <PhotoView src={imageList[game.cards[index] - 1]}>
-                                                    <span style={{ backgroundImage: 'url(' + imageList[game.cards[index] - 1] + ')' }} className={`${styles.numberCardResult} ${styles.cardNumber}`}></span>
+                                                <PhotoView src={imageList[validIndex]}>
+                                                    <span style={{ backgroundImage: 'url(' + imageList[validIndex] + ')' }} className={`${styles.numberCardResult} ${styles.cardNumber}`}></span>
                                                 </PhotoView>
                                             </div>
                                             <div className={styles.cardInfo}>

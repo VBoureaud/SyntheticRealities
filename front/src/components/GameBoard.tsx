@@ -34,7 +34,7 @@ const enumVote: { [key: string]: number } = {
 function GameBoard(props: Props) {
   const [game, setGame] = useState<Game>();
   const [vote, setVote] = useState(enumVote['init']);
-  const [card, setCard] = useState(0);
+  const [card, setCard] = useState('');
   const [hp, setHp] = useState(50);
   const [AIHp, setAIHp] = useState(config.AiHP);
   const [playerHp, setPlayerHp] = useState(config.playersHP);

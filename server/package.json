@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify --exit-child --clear src/index.ts",
-    "build": "tsc",
+    "build": "tsc && cp src/docs/components.yml dist/docs",
     "lint": "eslint . --ext .ts",
     "test": "jest",
     "seed": "ts-node-dev src/init/seedCards.ts"

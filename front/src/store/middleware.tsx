@@ -1,6 +1,6 @@
 import { Games } from "./types";
 import { eSteps, steps, } from "./";
-import { getRandomArbitrary, calculateScoreByVote, calculatorHp } from "../utils";
+import { getRandomArbitrary, /*calculateScoreByVote,*/ calculatorHp } from "../utils";
 import config from "../config";
 
 // generate obj to ask for a new game
@@ -120,7 +120,7 @@ export const askNextGame = (games: Games, playerName: string, party: string) => 
     // for (let i = 0; i < game.players.length; i++) {}
 
     // check hp player
-    const playerCurrentHp = game.defaultPlayersHP + calculateScoreByVote(game.votes[playerName], game.cards, serverAnswer);
+    const playerCurrentHp = game.defaultPlayersHP; //+ calculateScoreByVote(game.votes[playerName], game.cards, serverAnswer);
 
     let message;
     if (playerCurrentHp > 0 && (game.maxCards > 0 && game.cards.length < game.maxCards)) {

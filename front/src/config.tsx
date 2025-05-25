@@ -10,8 +10,8 @@ const config = {
     choices: [0, 1],
     maxCards: 10,
     voteTimerTolerance: 1000,
-    api: "http://127.0.0.1:3001/v1",
-    //api: "https://whomadethis-server.vercel.app/v1",
+    //api: "http://127.0.0.1:3001/v1",
+    api: "https://syntheticrealities-server.vercel.app/v1",
     online: true,
 };
 

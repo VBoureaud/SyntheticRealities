@@ -1,10 +1,10 @@
-import { Vote, CardResult } from "./store/types";
+//import { Vote, CardResult } from "./store/types";
 
 export function makeId(length: number) {
-   var result = '';
-   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-   var charactersLength = characters.length;
-   for (var i = 0; i < length; i++) {
+   let result = '';
+   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   const charactersLength = characters.length;
+   for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
    }
    return result;
@@ -12,8 +12,8 @@ export function makeId(length: number) {
 
 export function clone(obj: any) {
    if (null == obj || "object" != typeof obj) return obj;
-   var copy = obj.constructor();
-   for (var attr in obj) {
+   const copy = obj.constructor();
+   for (const attr in obj) {
       if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
    }
    return copy;
@@ -32,18 +32,19 @@ export const findByIdInArrayOfObj = (objects: any, id: number) => {
       if (objects[i].id === id) return i;
    }
 }
-export function calculateScoreByVote(playerVote: Vote[], cards: number[], cardResult: CardResult[]) {
-   for (let i = 0; i < playerVote.length; i++) {
-      const choice = playerVote[i].choice;
-      const idChoice = findByIdInArrayOfObj(cardResult, cards[i]);
-      const card = idChoice ? cardResult[idChoice] : null;
-      /*if (!card || choice != card.choice)
-         console.log('hp loss');
-      else
-         console.log('hp gain');*/
-   }
-   return 0;
-}
+
+// export function calculateScoreByVote(playerVote: Vote[], cards: number[], cardResult: CardResult[]) {
+//    for (let i = 0; i < playerVote.length; i++) {
+//       const choice = playerVote[i].choice;
+//       const idChoice = findByIdInArrayOfObj(cardResult, cards[i]);
+//       const card = idChoice ? cardResult[idChoice] : null;
+//       if (!card || choice != card.choice)
+//          console.log('hp loss');
+//       else
+//          console.log('hp gain');
+//    }
+//    return 0;
+// }
 
 export function positifNumberOrZero(num: number) {
    return num >= 0 ? num : 0;
